@@ -1,7 +1,40 @@
+import {
+  LineChart,
+  Line,
+  ResponsiveContainer,
+  Tooltip,
+  AreaChart,
+  Area,
+  XAxis,
+  CartesianGrid
+} from "recharts";
+
 import GlassCard from "../../components/ui/GlassCard";
 import KPIStatCard from "../../components/cards/KPIStatCard";
 
+
+
 function FinanceOverview() {
+
+
+
+  const revenueTrend = [
+
+    { month: "Jan", value: 32 },
+
+    { month: "Feb", value: 41 },
+
+    { month: "Mar", value: 36 },
+
+    { month: "Apr", value: 52 },
+
+    { month: "May", value: 49 },
+
+    { month: "Jun", value: 68 },
+
+  ];
+
+
 
   const expiringClients = [
 
@@ -27,6 +60,7 @@ function FinanceOverview() {
     }
 
   ];
+
 
 
   const unpaidInvoices = [
@@ -55,32 +89,43 @@ function FinanceOverview() {
   ];
 
 
+
   return (
 
-    <div className="min-h-screen bg-[#020617] text-white px-4 sm:px-6 lg:px-8 py-6 mt-15">
+    <div className="min-h-screen bg-[#020617] text-white px-5 sm:px-6 lg:px-8 py-6 mt-14">
+
+
 
       {/* HEADER */}
+
+
 
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-6">
 
         <div>
 
-          <p className="text-red-400 text-[11px] tracking-[0.25em] uppercase mb-2">
+          <p className="text-red-400 text-[10px] tracking-[0.25em] uppercase mb-2">
 
             Finance Intelligence
 
           </p>
 
-          <h1 className="text-3xl font-semibold mb-2">
+
+
+          <h1 className="text-2xl sm:text-3xl font-semibold mb-2">
 
             Revenue Leakage Monitoring
 
           </h1>
 
-          <p className="text-gray-400 text-sm">
 
-            Identify revenue risks, unpaid invoices,
-            expiring contracts and operational financial leakage.
+
+          <p className="text-gray-400 text-sm max-w-2xl">
+
+            Monitor unpaid invoices,
+            expiring contracts, branch
+            revenue risk and collection
+            performance in real time.
 
           </p>
 
@@ -88,7 +133,7 @@ function FinanceOverview() {
 
 
 
-        <button className="px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/10 text-red-400 text-sm w-fit">
+        <button className="px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs hover:bg-red-500/15 transition">
 
           Export Finance Report
 
@@ -98,9 +143,11 @@ function FinanceOverview() {
 
 
 
-      {/* KPI SECTION */}
+      {/* KPI GRID */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+
+
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
 
         <KPIStatCard
           title="Revenue At Risk"
@@ -110,6 +157,8 @@ function FinanceOverview() {
           icon="⚠️"
         />
 
+
+
         <KPIStatCard
           title="Expiring Clients"
           value="12"
@@ -118,6 +167,8 @@ function FinanceOverview() {
           icon="📄"
         />
 
+
+
         <KPIStatCard
           title="Unpaid Invoices"
           value="18"
@@ -125,6 +176,8 @@ function FinanceOverview() {
           color="purple"
           icon="💳"
         />
+
+
 
         <KPIStatCard
           title="Collection Rate"
@@ -140,13 +193,23 @@ function FinanceOverview() {
 
       {/* MAIN GRID */}
 
+
+
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-6">
+
+
 
         {/* LEFT */}
 
+
+
         <div className="xl:col-span-2 space-y-5">
 
-          {/* REVENUE RISK */}
+
+
+          {/* INTERACTIVE GRAPH */}
+
+
 
           <GlassCard className="p-5">
 
@@ -154,24 +217,27 @@ function FinanceOverview() {
 
               <div>
 
-                <h2 className="text-lg font-semibold mb-1">
+                <h2 className="text-base font-semibold mb-1">
 
-                  Revenue Risk Overview
+                  Revenue Trend Analytics
 
                 </h2>
 
-                <p className="text-gray-400 text-sm">
 
-                  Branch-wise financial risk distribution
+
+                <p className="text-gray-400 text-xs">
+
+                  Monthly financial performance
 
                 </p>
 
               </div>
 
 
-              <div className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/10 text-red-400 text-xs">
 
-                High Attention
+              <div className="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px]">
+
+                +18% Growth
 
               </div>
 
@@ -179,85 +245,68 @@ function FinanceOverview() {
 
 
 
-            {/* CHART */}
+            <div className="h-[260px] rounded-2xl bg-[#0B1120] border border-white/5 p-4">
 
-            <div className="relative h-[260px] rounded-2xl border border-white/5 bg-[#0B1120] overflow-hidden p-5">
+              <ResponsiveContainer width="100%" height="100%">
 
-              {/* GRID */}
+                <AreaChart data={revenueTrend}>
 
-              <div className="absolute inset-0 opacity-20">
+                  <defs>
 
-                {[...Array(6)].map((_, i) => (
+                    <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
 
-                  <div
-                    key={i}
-                    className="absolute left-0 right-0 border-t border-red-500/10"
-                    style={{
-                      top: `${i * 20}%`
+                      <stop offset="5%" stopColor="#ef4444" stopOpacity={0.4} />
+
+                      <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+
+                    </linearGradient>
+
+                  </defs>
+
+
+
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="rgba(255,255,255,0.05)"
+                  />
+
+
+
+                  <XAxis
+                    dataKey="month"
+                    tick={{
+                      fill: "#94A3B8",
+                      fontSize: 11
+                    }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+
+
+
+                  <Tooltip
+                    contentStyle={{
+                      background: "#020617",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: "12px",
+                      color: "white"
                     }}
                   />
 
-                ))}
-
-              </div>
 
 
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke="#ef4444"
+                    strokeWidth={3}
+                    fillOpacity={1}
+                    fill="url(#colorRevenue)"
+                  />
 
-              {/* BARS */}
+                </AreaChart>
 
-              <div className="absolute inset-0 flex items-end justify-around px-10 pb-10">
-
-                {[
-                  {
-                    branch: "Madhapur",
-                    value: "70%"
-                  },
-
-                  {
-                    branch: "Gachibowli",
-                    value: "55%"
-                  },
-
-                  {
-                    branch: "KPHB",
-                    value: "82%"
-                  },
-
-                  {
-                    branch: "Kondapur",
-                    value: "48%"
-                  },
-
-                  {
-                    branch: "HN",
-                    value: "91%"
-                  }
-
-                ].map((item, index) => (
-
-                  <div
-                    key={index}
-                    className="flex flex-col items-center gap-3"
-                  >
-
-                    <div
-                      className="w-14 rounded-t-xl bg-gradient-to-t from-red-500 to-orange-400"
-                      style={{
-                        height: item.value
-                      }}
-                    ></div>
-
-                    <p className="text-xs text-gray-400">
-
-                      {item.branch}
-
-                    </p>
-
-                  </div>
-
-                ))}
-
-              </div>
+              </ResponsiveContainer>
 
             </div>
 
@@ -265,19 +314,23 @@ function FinanceOverview() {
 
 
 
-          {/* UNPAID INVOICES */}
+          {/* INVOICES */}
+
+
 
           <GlassCard className="p-5 overflow-x-auto">
 
             <div className="mb-5">
 
-              <h2 className="text-lg font-semibold mb-1">
+              <h2 className="text-base font-semibold mb-1">
 
                 Unpaid Invoices
 
               </h2>
 
-              <p className="text-gray-400 text-sm">
+
+
+              <p className="text-gray-400 text-xs">
 
                 Pending payment tracking
 
@@ -287,16 +340,20 @@ function FinanceOverview() {
 
 
 
-            <table className="w-full min-w-[700px]">
+            <table className="w-full min-w-[650px]">
 
               <thead>
 
-                <tr className="border-b border-white/5 text-left text-gray-400 text-sm">
+                <tr className="border-b border-white/5 text-left text-gray-400 text-xs">
 
                   <th className="pb-3">Invoice</th>
+
                   <th className="pb-3">Company</th>
+
                   <th className="pb-3">Due Status</th>
+
                   <th className="pb-3">Amount</th>
+
                   <th className="pb-3">Action</th>
 
                 </tr>
@@ -311,28 +368,44 @@ function FinanceOverview() {
 
                   <tr
                     key={index}
-                    className="border-b border-white/5"
+                    className="border-b border-white/5 hover:bg-white/[0.02] transition"
                   >
 
-                    <td className="py-3">
+                    <td className="py-4 text-sm">
+
                       {invoice.invoice}
+
                     </td>
 
-                    <td className="py-3">
+
+
+                    <td className="py-4 text-sm">
+
                       {invoice.company}
+
                     </td>
 
-                    <td className="py-3 text-red-400">
+
+
+                    <td className="py-4 text-red-400 text-sm">
+
                       {invoice.due}
+
                     </td>
 
-                    <td className="py-3">
+
+
+                    <td className="py-4 text-sm">
+
                       {invoice.amount}
+
                     </td>
 
-                    <td className="py-3">
 
-                      <button className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/10 text-red-400 text-xs">
+
+                    <td className="py-4">
+
+                      <button className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] hover:bg-red-500/15 transition">
 
                         Send Reminder
 
@@ -356,21 +429,29 @@ function FinanceOverview() {
 
         {/* RIGHT */}
 
+
+
         <div className="space-y-5">
 
+
+
           {/* EXPIRING CLIENTS */}
+
+
 
           <GlassCard className="p-5">
 
             <div className="mb-5">
 
-              <h2 className="text-lg font-semibold mb-1">
+              <h2 className="text-base font-semibold mb-1">
 
                 Expiring Clients
 
               </h2>
 
-              <p className="text-gray-400 text-sm">
+
+
+              <p className="text-gray-400 text-xs">
 
                 Contracts nearing expiry
 
@@ -380,13 +461,13 @@ function FinanceOverview() {
 
 
 
-            <div className="space-y-4">
+            <div className="space-y-3">
 
               {expiringClients.map((client, index) => (
 
                 <div
                   key={index}
-                  className="bg-white/5 border border-white/5 rounded-xl p-4"
+                  className="bg-white/[0.04] border border-white/5 rounded-xl p-4 hover:border-red-500/20 transition"
                 >
 
                   <div className="flex items-center justify-between mb-2">
@@ -397,7 +478,9 @@ function FinanceOverview() {
 
                     </h3>
 
-                    <span className="text-red-400 text-xs">
+
+
+                    <span className="text-red-400 text-[10px]">
 
                       {client.expiry}
 
@@ -406,11 +489,13 @@ function FinanceOverview() {
                   </div>
 
 
-                  <p className="text-xs text-gray-400 mb-3">
+
+                  <p className="text-[11px] text-gray-400 mb-3">
 
                     {client.branch}
 
                   </p>
+
 
 
                   <div className="flex items-center justify-between">
@@ -421,7 +506,9 @@ function FinanceOverview() {
 
                     </p>
 
-                    <button className="px-3 py-1 rounded-lg bg-red-500/10 border border-red-500/10 text-red-400 text-xs">
+
+
+                    <button className="px-3 py-1 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] hover:bg-red-500/15 transition">
 
                       Renew
 
@@ -439,21 +526,25 @@ function FinanceOverview() {
 
 
 
-          {/* HIGHLIGHT METRICS */}
+          {/* METRICS */}
+
+
 
           <GlassCard className="p-5">
 
             <div className="mb-5">
 
-              <h2 className="text-lg font-semibold mb-1">
+              <h2 className="text-base font-semibold mb-1">
 
-                Highlight Metrics
+                Financial Insights
 
               </h2>
 
-              <p className="text-gray-400 text-sm">
 
-                Financial risk indicators
+
+              <p className="text-gray-400 text-xs">
+
+                Operational finance indicators
 
               </p>
 
@@ -461,9 +552,10 @@ function FinanceOverview() {
 
 
 
-            <div className="space-y-4">
+            <div className="space-y-3">
 
               {[
+
                 {
                   label: "Highest Risk Branch",
                   value: "Himayathnagar"
@@ -488,14 +580,16 @@ function FinanceOverview() {
 
                 <div
                   key={index}
-                  className="flex items-center justify-between bg-white/5 border border-white/5 rounded-xl p-4"
+                  className="flex items-center justify-between bg-white/[0.04] border border-white/5 rounded-xl p-4 hover:border-white/10 transition"
                 >
 
-                  <p className="text-sm text-gray-400">
+                  <p className="text-xs text-gray-400">
 
                     {item.label}
 
                   </p>
+
+
 
                   <p className="text-sm text-white font-medium">
 
@@ -518,6 +612,9 @@ function FinanceOverview() {
     </div>
 
   );
+
 }
+
+
 
 export default FinanceOverview;

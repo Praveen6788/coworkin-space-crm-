@@ -7,6 +7,8 @@ import BranchMembersTable from "../../components/branchanalytics/BranchMembersTa
 
 import GlassCard from "../../components/ui/GlassCard";
 
+
+
 const branchData = {
 
   Madhapur: {
@@ -57,243 +59,89 @@ const branchData = {
 };
 
 
+
 function BranchAnalytics() {
 
   const [selectedBranch, setSelectedBranch] =
     useState("Madhapur");
 
 
+
   const currentBranch =
     branchData[selectedBranch];
 
 
+
   return (
 
-    <div className="min-h-screen bg-[#020617] text-white px-4 sm:px-6 lg:px-8 py-6 mt-15">
-
-      {/* HEADER */}
-
-      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5 mb-6">
-
-        <div>
-
-          <p className="text-cyan-400 text-[11px] tracking-[0.25em] uppercase mb-2">
-
-            Global Admin Panel
-
-          </p>
-
-          <h1 className="text-3xl font-semibold mb-2">
-
-            Branch Analytics
-
-          </h1>
-
-          <p className="text-gray-400 text-sm">
-
-            Real-time workspace intelligence and operational workflows.
-
-          </p>
-
-        </div>
+    <div className="min-h-screen bg-[#020617] text-white py-4 mt-14">
 
 
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none placeholder:text-gray-500"
-          />
-
-
-          <BranchSelector
-            selectedBranch={selectedBranch}
-            setSelectedBranch={setSelectedBranch}
-          />
-
-
-          <div className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-cyan-400">
-
-            Global Admin
-
-          </div>
-
-        </div>
-
-      </div>
+      <div className="max-w-[1500px] mx-auto px-4">
 
 
 
-      {/* KPI + MANAGER */}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-6">
-
-        {/* KPI */}
-
-        <div className="xl:col-span-4">
-
-          <BranchMetricCards
-            selectedBranch={selectedBranch}
-          />
-
-        </div>
+        {/* HERO */}
 
 
 
-        {/* MANAGER */}
+        <div
+          className="
+            relative
+            overflow-hidden
 
-        <GlassCard className="p-5 h-full">
+            rounded-2xl
 
-          <div className="flex items-center gap-4 mb-5">
+            border border-white/10
 
-            <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/10 flex items-center justify-center text-sm font-semibold text-cyan-400">
+            bg-gradient-to-br
+            from-cyan-500/10
+            via-blue-500/5
+            to-emerald-500/10
 
-              {currentBranch.manager
-                .split(" ")
-                .map((word) => word[0])
-                .join("")}
+            p-4 lg:p-5
 
-            </div>
+            mb-3
+          "
+        >
+
+          <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/10 blur-[100px] rounded-full"></div>
 
 
-            <div>
 
-              <p className="text-xs text-gray-400 mb-1">
+          <div className="relative z-10 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
 
-                Branch Manager
+
+
+            {/* LEFT */}
+
+
+
+            <div className="max-w-2xl">
+
+              <p className="text-cyan-400 text-[10px] uppercase tracking-[0.28em] mb-2">
+
+                Workspace Intelligence
 
               </p>
 
-              <h3 className="font-medium text-white">
 
-                {currentBranch.manager}
 
-              </h3>
+              <h1 className="text-3xl sm:text-4xl font-semibold mb-3 leading-tight">
 
-              <p className="text-xs text-cyan-400">
+                Branch Analytics
 
-                {selectedBranch}
+              </h1>
 
-              </p>
 
-            </div>
 
-          </div>
+              <p className="text-slate-400 text-sm leading-relaxed">
 
-
-
-          <div className="space-y-3">
-
-            <div className="flex items-center justify-between">
-
-              <p className="text-xs text-gray-400">
-
-                Occupancy
-
-              </p>
-
-              <p className="text-xs text-cyan-400">
-
-                {currentBranch.occupancy}
-
-              </p>
-
-            </div>
-
-
-            <div className="flex items-center justify-between">
-
-              <p className="text-xs text-gray-400">
-
-                Team Members
-
-              </p>
-
-              <p className="text-xs text-white">
-
-                {currentBranch.team}
-
-              </p>
-
-            </div>
-
-
-            <div className="flex items-center justify-between">
-
-              <p className="text-xs text-gray-400">
-
-                Pending Renewals
-
-              </p>
-
-              <p className="text-xs text-red-400">
-
-                {currentBranch.renewals}
-
-              </p>
-
-            </div>
-
-
-            <div className="flex items-center justify-between">
-
-              <p className="text-xs text-gray-400">
-
-                Open Tickets
-
-              </p>
-
-              <p className="text-xs text-yellow-400">
-
-                {currentBranch.tickets}
-
-              </p>
-
-            </div>
-
-          </div>
-
-        </GlassCard>
-
-      </div>
-
-
-
-      {/* MAIN GRID */}
-
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-5">
-
-        {/* LEFT */}
-
-        <div className="xl:col-span-2">
-
-          <ResourceCalendar
-            selectedBranch={selectedBranch}
-          />
-
-        </div>
-
-
-
-        {/* RIGHT */}
-
-        <div>
-
-          <GlassCard className="p-5 h-full">
-
-            <div className="mb-5">
-
-              <h2 className="text-lg font-semibold mb-1">
-
-                Active Operations
-
-              </h2>
-
-              <p className="text-gray-400 text-sm">
-
-                Live workspace operational metrics
+                Monitor occupancy,
+                workspace utilization,
+                renewals and operational
+                performance in real time.
 
               </p>
 
@@ -301,65 +149,80 @@ function BranchAnalytics() {
 
 
 
-            <div className="space-y-4">
+            {/* HERO METRICS */}
+
+
+
+            <div className="grid grid-cols-2 gap-2 w-full xl:w-[400px]">
 
               {[
+
                 {
-                  title: "Meeting Room Usage",
-                  value: currentBranch.roomUsage
+                  label: "Occupancy",
+                  value: currentBranch.occupancy,
+                  color: "text-emerald-400"
                 },
 
                 {
-                  title: "Desk Occupancy",
-                  value: currentBranch.occupancy
+                  label: "Team",
+                  value: currentBranch.team,
+                  color: "text-cyan-400"
                 },
 
                 {
-                  title: "Renewals Due",
-                  value: `${currentBranch.renewals}`
+                  label: "Renewals",
+                  value: currentBranch.renewals,
+                  color: "text-orange-400"
                 },
 
                 {
-                  title: "Open Tickets",
-                  value: `${currentBranch.tickets}`
+                  label: "Tickets",
+                  value: currentBranch.tickets,
+                  color: "text-red-400"
                 }
 
               ].map((item, index) => (
 
                 <div
                   key={index}
-                  className="bg-white/5 border border-white/5 rounded-xl p-4"
+                  className="
+                    bg-white/[0.04]
+                    border border-white/10
+
+                    rounded-xl
+
+                    px-3 py-2.5
+
+                    backdrop-blur-xl
+
+                    hover:border-cyan-500/20
+                    transition
+                  "
                 >
 
-                  <div className="flex items-center justify-between mb-3">
+                  <p className="text-slate-500 text-[10px] mb-1">
 
-                    <p className="text-sm text-gray-400">
+                    {item.label}
 
-                      {item.title}
+                  </p>
 
-                    </p>
 
-                    <p className="text-cyan-400 text-sm font-medium">
+
+                  <div className="flex items-end justify-between">
+
+                    <h3 className="text-lg font-semibold leading-none">
 
                       {item.value}
 
-                    </p>
-
-                  </div>
+                    </h3>
 
 
 
-                  <div className="h-2 rounded-full bg-black/40 overflow-hidden">
+                    <span className={`text-[10px] ${item.color}`}>
 
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400"
-                      style={{
-                        width:
-                          item.value.includes("%")
-                            ? item.value
-                            : "70%"
-                      }}
-                    />
+                      Live
+
+                    </span>
 
                   </div>
 
@@ -369,23 +232,461 @@ function BranchAnalytics() {
 
             </div>
 
+          </div>
+
+        </div>
+
+
+
+        {/* TOP CONTROLS */}
+
+
+
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3 mb-3">
+
+
+
+          <div className="flex items-center gap-2 flex-wrap">
+
+            <input
+              type="text"
+              placeholder="Search branch metrics..."
+              className="
+                bg-[#0F172A]
+                border border-white/10
+
+                rounded-xl
+
+                px-4 py-2.5
+
+                text-sm
+
+                outline-none
+
+                placeholder:text-slate-500
+
+                w-full sm:w-[240px]
+
+                focus:border-cyan-500/30
+                transition
+              "
+            />
+
+
+
+            <BranchSelector
+              selectedBranch={selectedBranch}
+              setSelectedBranch={setSelectedBranch}
+            />
+
+          </div>
+
+
+
+          <div
+            className="
+              px-4 py-2.5
+
+              rounded-xl
+
+              bg-[#0F172A]
+              border border-white/10
+
+              text-xs text-cyan-400
+            "
+          >
+
+            Global Workspace Admin
+
+          </div>
+
+        </div>
+
+
+
+        {/* KPI + MANAGER */}
+
+
+
+        <div className="grid grid-cols-1 xl:grid-cols-[1.65fr_0.7fr] gap-3 mb-3">
+
+
+
+          {/* KPI */}
+
+
+
+          <div>
+
+            <BranchMetricCards
+              selectedBranch={selectedBranch}
+            />
+
+          </div>
+
+
+
+          {/* MANAGER */}
+
+
+
+          <GlassCard className="p-4 relative overflow-hidden rounded-2xl h-full">
+
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[60px] rounded-full"></div>
+
+
+
+            <div className="relative z-10">
+
+
+
+              <div className="flex items-center gap-3 mb-4">
+
+                <div
+                  className="
+                    w-11 h-11
+
+                    rounded-xl
+
+                    bg-cyan-500/10
+                    border border-cyan-500/20
+
+                    flex items-center justify-center
+
+                    text-sm
+                    font-semibold
+
+                    text-cyan-400
+                  "
+                >
+
+                  {currentBranch.manager
+                    .split(" ")
+                    .map((word) => word[0])
+                    .join("")}
+
+                </div>
+
+
+
+                <div>
+
+                  <p className="text-[10px] text-slate-500 mb-1">
+
+                    Branch Manager
+
+                  </p>
+
+
+
+                  <h3 className="text-sm font-medium text-white">
+
+                    {currentBranch.manager}
+
+                  </h3>
+
+
+
+                  <p className="text-[10px] text-cyan-400 mt-1">
+
+                    {selectedBranch}
+
+                  </p>
+
+                </div>
+
+              </div>
+
+
+
+              <div className="space-y-2.5">
+
+                {[
+
+                  {
+                    label: "Occupancy",
+                    value: currentBranch.occupancy,
+                    color: "text-cyan-400"
+                  },
+
+                  {
+                    label: "Team Members",
+                    value: currentBranch.team,
+                    color: "text-white"
+                  },
+
+                  {
+                    label: "Pending Renewals",
+                    value: currentBranch.renewals,
+                    color: "text-orange-400"
+                  },
+
+                  {
+                    label: "Open Tickets",
+                    value: currentBranch.tickets,
+                    color: "text-red-400"
+                  }
+
+                ].map((item, index) => (
+
+                  <div
+                    key={index}
+                    className="
+                      flex items-center justify-between
+
+                      bg-white/[0.03]
+                      border border-white/5
+
+                      rounded-xl
+
+                      px-3 py-2.5
+                    "
+                  >
+
+                    <p className="text-[11px] text-slate-400">
+
+                      {item.label}
+
+                    </p>
+
+
+
+                    <p className={`text-[11px] font-medium ${item.color}`}>
+
+                      {item.value}
+
+                    </p>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+            </div>
+
           </GlassCard>
+
+        </div>
+
+
+
+        {/* MAIN GRID */}
+
+
+
+        <div className="grid grid-cols-1 2xl:grid-cols-[1.7fr_0.8fr] gap-3 mb-3">
+
+
+
+          {/* CALENDAR */}
+
+
+
+          <div>
+
+            <ResourceCalendar
+              selectedBranch={selectedBranch}
+            />
+
+          </div>
+
+
+
+          {/* OPERATIONS */}
+
+
+
+          <div>
+
+            <GlassCard className="p-4 h-full relative overflow-hidden rounded-2xl">
+
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/10 blur-[70px] rounded-full"></div>
+
+
+
+              <div className="relative z-10">
+
+
+
+                <div className="mb-4">
+
+                  <p className="text-cyan-400 text-[10px] uppercase tracking-[0.2em] mb-2">
+
+                    Live Metrics
+
+                  </p>
+
+
+
+                  <h2 className="text-base font-semibold mb-1">
+
+                    Active Operations
+
+                  </h2>
+
+
+
+                  <p className="text-slate-400 text-xs">
+
+                    Workspace operational analytics
+
+                  </p>
+
+                </div>
+
+
+
+                <div className="space-y-2.5">
+
+                  {[
+
+                    {
+                      title: "Meeting Room Usage",
+                      value: currentBranch.roomUsage
+                    },
+
+                    {
+                      title: "Desk Occupancy",
+                      value: currentBranch.occupancy
+                    },
+
+                    {
+                      title: "Renewals Due",
+                      value: `${currentBranch.renewals}`
+                    },
+
+                    {
+                      title: "Open Tickets",
+                      value: `${currentBranch.tickets}`
+                    }
+
+                  ].map((item, index) => (
+
+                    <div
+                      key={index}
+                      className="
+                        bg-white/[0.03]
+                        border border-white/5
+
+                        rounded-lg
+
+                        px-3 py-2.5
+
+                        hover:border-cyan-500/20
+                        transition
+                      "
+                    >
+
+                      <div className="flex items-center justify-between mb-2">
+
+                        <p className="text-xs text-slate-400">
+
+                          {item.title}
+
+                        </p>
+
+
+
+                        <p className="text-cyan-400 text-xs font-medium">
+
+                          {item.value}
+
+                        </p>
+
+                      </div>
+
+
+
+                      <div className="h-1.5 rounded-full bg-black/40 overflow-hidden">
+
+                        <div
+                          className="
+                            h-full
+                            rounded-full
+
+                            bg-gradient-to-r
+                            from-cyan-400
+                            to-emerald-400
+                          "
+                          style={{
+                            width:
+                              item.value.includes("%")
+                                ? item.value
+                                : "70%"
+                          }}
+                        />
+
+                      </div>
+
+                    </div>
+
+                  ))}
+
+                </div>
+
+              </div>
+
+            </GlassCard>
+
+          </div>
+
+        </div>
+
+
+
+        {/* TABLE */}
+
+
+
+        <div className="bg-[#0F172A] border border-white/10 rounded-2xl p-3.5">
+
+          <div className="flex items-center justify-between mb-4">
+
+            <div>
+
+              <p className="text-slate-500 text-[10px] uppercase tracking-[0.2em] mb-2">
+
+                Team & Occupancy
+
+              </p>
+
+
+
+              <h2 className="text-base font-semibold">
+
+                Branch Members
+
+              </h2>
+
+            </div>
+
+
+
+            <div className="px-3 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px]">
+
+              Live Sync
+
+            </div>
+
+          </div>
+
+
+
+          <BranchMembersTable
+            selectedBranch={selectedBranch}
+          />
 
         </div>
 
       </div>
 
-
-
-      {/* MEMBERS TABLE */}
-
-      <BranchMembersTable
-        selectedBranch={selectedBranch}
-      />
-
     </div>
 
   );
+
 }
+
+
 
 export default BranchAnalytics;

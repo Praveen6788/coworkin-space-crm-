@@ -48,7 +48,7 @@ function WorkflowManual() {
 
   return (
 
-    <div className="min-h-screen bg-[#020617] text-white px-5 lg:px-10 py-10">
+    <div className="min-h-screen bg-[#020617] text-white px-5 lg:px-10 py-10 mt-15">
 
 
 
@@ -66,7 +66,7 @@ function WorkflowManual() {
 
 
 
-        <h1 className="text-4xl lg:text-6xl font-semibold mb-4">
+        <h1 className="text-xl lg:text-xl font-semibold mb-4">
 
           Workflow Manual
 

@@ -20,6 +20,9 @@ import BranchAdminDashboard from "./pages/Branch admin/BranchAdminDashboard";
 import BranchBookingPage from "./components/clients/BranchBookingPage";
 import Bookings from "./components/clients/Bookings";
 import Loc from "./components/clients/Locations"
+import AddLead from "./pages/Branch admin/AddLead";
+import FinancePage from "./pages/Branch admin/FinancePage";
+import ClientBillingPage from "./pages/client/ClinetBilling";
 
 
 
@@ -90,7 +93,19 @@ const router = createBrowserRouter([
       element :<Loc/>
      },
      {path:"client/bookings",
-  element:<Bookings/>}
+  element:<Bookings/>},
+  {
+    path : "branch-admin/add-lead",
+    element : <AddLead/>
+  },
+  {
+    path : "branch-admin/finance/:id",
+    element : <FinancePage/>
+  },
+  {
+  path :"client/billing",
+  element :<ClientBillingPage/>}
+
     ],
   },
 ]);

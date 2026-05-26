@@ -13,7 +13,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 
-import { saveLead } from "../../data/leadsStore";
+import { createLead } from "../../Api/lead";
 
 import { branches } from "../../data/branches";
 
@@ -72,19 +72,17 @@ function AddLead() {
      ADD LEAD
   ---------------------------------------- */
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
 
-    e.preventDefault();
+  e.preventDefault();
 
 
+
+  try {
 
     const newLead = {
 
-      id: Date.now(),
-
       ...formData,
-
-
 
       stage: "new"
 
@@ -92,7 +90,20 @@ function AddLead() {
 
 
 
-    saveLead(newLead);
+    console.log("Submitting Lead:", newLead);
+
+
+
+    const response =
+      await createLead(newLead);
+
+
+
+    console.log("Lead Created:", response);
+
+
+
+    alert("Client added successfully");
 
 
 
@@ -132,7 +143,17 @@ function AddLead() {
 
     }, 3000);
 
-  };
+  } catch (error) {
+
+    console.log(error);
+
+
+
+    alert("Failed to add client");
+
+  }
+
+};
 
 
 
@@ -379,46 +400,31 @@ function AddLead() {
                 className="w-full bg-transparent outline-none text-white text-sm"
               >
 
-                <option
-                  value="Private Cabin"
-                  className="bg-slate-900"
-                >
+                <option value="Private Cabin" className="bg-slate-900">
 
                   Private Cabin
 
                 </option>
 
-                <option
-                  value="Meeting Room"
-                  className="bg-slate-900"
-                >
+                <option value="Meeting Room" className="bg-slate-900">
 
                   Meeting Room
 
                 </option>
 
-                <option
-                  value="Hot Desks"
-                  className="bg-slate-900"
-                >
+                <option value="Hot Desks" className="bg-slate-900">
 
                   Hot Desks
 
                 </option>
 
-                <option
-                  value="Day Pass"
-                  className="bg-slate-900"
-                >
+                <option value="Day Pass" className="bg-slate-900">
 
                   Day Pass
 
                 </option>
 
-                <option
-                  value="Event Space"
-                  className="bg-slate-900"
-                >
+                <option value="Event Space" className="bg-slate-900">
 
                   Event Space
 
@@ -608,28 +614,19 @@ function AddLead() {
               className="w-full h-14 px-5 rounded-2xl bg-white/[0.03] border border-white/10 outline-none text-white text-sm"
             >
 
-              <option
-                value="High"
-                className="bg-slate-900"
-              >
+              <option value="High" className="bg-slate-900">
 
                 High
 
               </option>
 
-              <option
-                value="Medium"
-                className="bg-slate-900"
-              >
+              <option value="Medium" className="bg-slate-900">
 
                 Medium
 
               </option>
 
-              <option
-                value="Low"
-                className="bg-slate-900"
-              >
+              <option value="Low" className="bg-slate-900">
 
                 Low
 

@@ -47,7 +47,11 @@ const Header = () => {
     {
       name: "Pipeline",
       path: "/branch-admin/pipeline"
-    }
+    },
+   {
+  name:"Finance",
+  path:"/branch-admin/finance"
+}
   ];
 
 
@@ -91,13 +95,10 @@ const clientNav = [
     path: "/events"
   },
 
+  
   {
-    name: "Login",
-    path: "/login"
-  },
-  {
-    name:"membership",
-    path:"/membership"
+    name:"billing",
+    path:"client/billing"
   }
 
 ];

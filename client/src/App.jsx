@@ -23,6 +23,7 @@ import Loc from "./components/clients/Locations"
 import AddLead from "./pages/Branch admin/AddLead";
 import FinancePage from "./pages/Branch admin/FinancePage";
 import ClientBillingPage from "./pages/client/ClinetBilling";
+import DemoManual from "./pages/public/DemoManual";
 
 
 
@@ -104,7 +105,11 @@ const router = createBrowserRouter([
   },
   {
   path :"client/billing",
-  element :<ClientBillingPage/>}
+  element :<ClientBillingPage/>},
+  {
+    path:"demo-manual",
+    element : <DemoManual/>
+  }
 
     ],
   },

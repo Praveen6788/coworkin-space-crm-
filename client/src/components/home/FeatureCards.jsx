@@ -1,6 +1,9 @@
-import AnimatedContent from "../../../reactbits/Animate"
+import AnimatedContent from "../../../reactbits/Animate";
+
+
 
 const features = [
+
   {
     icon: "📊",
     title: "Multi Location Dashboard",
@@ -10,6 +13,7 @@ const features = [
     iconBg: "bg-blue-500/10",
     badgeBg: "bg-green-500/10 text-green-400",
   },
+
   {
     icon: "💰",
     title: "Revenue Leakage Tracking",
@@ -19,6 +23,7 @@ const features = [
     iconBg: "bg-red-500/10",
     badgeBg: "bg-green-500/10 text-green-400",
   },
+
   {
     icon: "🏢",
     title: "Interactive Floor Map",
@@ -28,6 +33,7 @@ const features = [
     iconBg: "bg-green-500/10",
     badgeBg: "bg-green-500/10 text-green-400",
   },
+
   {
     icon: "📌",
     title: "Lead & Client Pipeline",
@@ -37,6 +43,7 @@ const features = [
     iconBg: "bg-orange-500/10",
     badgeBg: "bg-green-500/10 text-green-400",
   },
+
   {
     icon: "📑",
     title: "Finance & Billing",
@@ -46,6 +53,7 @@ const features = [
     iconBg: "bg-purple-500/10",
     badgeBg: "bg-green-500/10 text-green-400",
   },
+
   {
     icon: "🔐",
     title: "Role Based Access",
@@ -55,88 +63,125 @@ const features = [
     iconBg: "bg-cyan-500/10",
     badgeBg: "bg-green-500/10 text-green-400",
   },
+
   {
     icon: "👥",
-    title: "Smart Visitor Management",
-    text: "Track visitor entries, approvals, host notifications, and workspace access logs.",
+    title: "Visitor Management",
+    text: "Track visitor approvals, host notifications, and workspace access logs.",
     badge: "Beta",
     border: "hover:border-pink-500/30",
     iconBg: "bg-pink-500/10",
     badgeBg: "bg-yellow-500/10 text-yellow-400",
   },
+
   {
     icon: "📅",
-    title: "Conference Room Booking",
-    text: "Manage conference room reservations, schedules, availability, and booking conflicts.",
+    title: "Meeting Room Booking",
+    text: "Manage room reservations, schedules, and availability.",
     badge: "Beta",
     border: "hover:border-indigo-500/30",
     iconBg: "bg-indigo-500/10",
     badgeBg: "bg-yellow-500/10 text-yellow-400",
   },
+
   {
     icon: "🚀",
-    title: "Future Expansion Modules",
-    text: "Ticket management, internal team chat, integrations layer, CMS, and AI operational insights.",
+    title: "Expansion Modules",
+    text: "AI insights, ticket management, CMS integrations, and advanced workflows.",
     badge: "Phase 2",
     border: "hover:border-gray-500/30",
     iconBg: "bg-gray-500/10",
     badgeBg: "bg-gray-500/10 text-gray-300",
   },
-]
+
+];
+
+
 
 const FeatureCards = () => {
+
   return (
+
     <section
       className="
         relative
-        py-24
-        px-14 sm:px-6 lg:px-20
+        py-16
+        px-5 sm:px-6 lg:px-12
         text-white
         overflow-hidden
       "
       id="features"
     >
 
-      {/* Background Glow */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
 
-        {/* Heading */}
+      {/* BACKGROUND GLOW */}
+
+
+
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+
+
+
+        {/* HEADER */}
+
+
+
         <AnimatedContent
-          distance={40}
-          duration={1}
+          distance={30}
+          duration={0.9}
           blur
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
 
-          <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm mb-6 backdrop-blur-xl">
+          <div className="inline-flex items-center px-3 py-1.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[11px] mb-5 backdrop-blur-xl">
+
             Platform Features
+
           </div>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Everything Needed to Run a Modern Coworking Space
+
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-tight">
+
+            Everything Needed to Run
+            a Modern Coworking Space
+
           </h2>
 
-          <p className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
-            CoworkOS combines CRM, ERP, occupancy tracking,
-            finance management, and operational workflows
-            into one centralized SaaS ecosystem.
+
+
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+
+            CoworkOS combines CRM,
+            ERP, occupancy tracking,
+            finance management, and
+            operational workflows into
+            one centralized SaaS ecosystem.
+
           </p>
 
         </AnimatedContent>
 
 
-        {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        {/* GRID */}
+
+
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 
           {features.map((feature, index) => (
 
             <AnimatedContent
               key={index}
-              distance={30}
-              duration={0.8}
-              delay={index * 0.08}
+              distance={20}
+              duration={0.7}
+              delay={index * 0.05}
               blur
             >
 
@@ -145,89 +190,127 @@ const FeatureCards = () => {
                   group
                   bg-white/[0.04]
                   border border-white/10
-                  rounded-2xl
-                  p-5 sm:p-6
+                  rounded-xl
+                  p-4
                   backdrop-blur-2xl
 
                   transition-all duration-500
 
-                  hover:-translate-y-2
+                  hover:-translate-y-1.5
                   hover:bg-white/[0.06]
-                  hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]
+                  hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]
 
                   ${feature.border}
                 `}
               >
 
-                {/* Top */}
+
+
+                {/* TOP */}
+
+
+
                 <div className="flex items-center justify-between mb-4">
 
-                  {/* Icon */}
+
+
+                  {/* ICON */}
+
+
+
                   <div
                     className={`
-                      w-11 h-11
-                      sm:w-12 sm:h-12
-                      rounded-xl
+                      w-9 h-9
+                      rounded-lg
+
                       ${feature.iconBg}
 
                       flex items-center justify-center
 
-                      text-lg sm:text-xl
+                      text-base
 
                       transition-all duration-500
-                      group-hover:scale-110
-                      group-hover:rotate-3
+
+                      group-hover:scale-105
                     `}
                   >
+
                     {feature.icon}
+
                   </div>
 
-                  {/* Badge */}
+
+
+                  {/* BADGE */}
+
+
+
                   <span
                     className={`
-                      px-2.5 py-0.5
-                      rounded-lg
-                      text-[10px] sm:text-xs
+                      px-2 py-[2px]
+                      rounded-md
+                      text-[9px]
+
                       border border-white/10
-                      transition-all duration-300
 
                       ${feature.badgeBg}
                     `}
                   >
+
                     {feature.badge}
+
                   </span>
 
                 </div>
 
-                {/* Title */}
+
+
+                {/* TITLE */}
+
+
+
                 <h3
                   className="
-                    text-xl font-semibold mb-3
+                    text-base
+                    font-semibold
+                    mb-2
 
                     transition-all duration-300
+
                     group-hover:translate-x-1
                   "
                 >
+
                   {feature.title}
+
                 </h3>
 
-                {/* Description */}
+
+
+                {/* DESCRIPTION */}
+
+
+
                 <p
                   className="
                     text-gray-400
                     leading-relaxed
-                    text-sm sm:text-base
+                    text-xs sm:text-sm
 
                     transition-colors duration-300
+
                     group-hover:text-gray-300
                   "
                 >
+
                   {feature.text}
+
                 </p>
 
               </div>
 
             </AnimatedContent>
+
           ))}
 
         </div>
@@ -235,7 +318,11 @@ const FeatureCards = () => {
       </div>
 
     </section>
-  )
-}
 
-export default FeatureCards
+  );
+
+};
+
+
+
+export default FeatureCards;

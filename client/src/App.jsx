@@ -99,7 +99,7 @@ const router = createBrowserRouter([
     element : <AddLead/>
   },
   {
-    path : "branch-admin/finance/:id",
+    path : "branch-admin/finance",
     element : <FinancePage/>
   },
   {

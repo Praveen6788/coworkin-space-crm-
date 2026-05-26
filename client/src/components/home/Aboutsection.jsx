@@ -1,31 +1,85 @@
+import AnimatedContent from "../../../reactbits/Animate"
+
+const cards = [
+  {
+    title: "Problem",
+    color:
+      "border-red-500/20 bg-red-500/10 hover:border-red-500/40",
+    heading: "text-red-400",
+    text: `
+      A coworking company with multiple branches
+      struggles to track renewals, bookings,
+      occupancy, and payments because operations
+      are managed manually across spreadsheets
+      and separate tools.
+    `,
+  },
+  {
+    title: "Impact",
+    color:
+      "border-yellow-500/20 bg-yellow-500/10 hover:border-yellow-500/40",
+    heading: "text-yellow-400",
+    text: `
+      Missed renewals, revenue leakage,
+      communication gaps, poor occupancy visibility,
+      and inefficient operations reduce overall
+      business growth and customer satisfaction.
+    `,
+  },
+  {
+    title: "Solution",
+    color:
+      "border-green-500/20 bg-green-500/10 hover:border-green-500/40",
+    heading: "text-green-400",
+    text: `
+      CoWorkOS automates renewals, centralizes
+      branch operations, manages finance,
+      tracks occupancy in real-time,
+      and streamlines coworking workflows
+      through one intelligent ERP platform.
+    `,
+  },
+]
+
 const Aboutsection = () => {
   return (
-    <div
-      className="min-h-screen bg-[#0B0F19] text-white py-10 px-4"
-      id="About"
+    <section
+      className="
+        relative
+        min-h-screen
+        bg-[#0B0F19]
+        text-white
+        py-24
+        px-14
+        overflow-hidden
+      "
+      id="about"
     >
 
-      <section
-        id="about"
-        className="py-10 px-2 sm:px-4 lg:px-10"
-      >
+      {/* Background Glow */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[750px] h-[700px] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none" ></div>
 
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
 
-          {/* Left Content */}
+        {/* LEFT SIDE */}
+        <AnimatedContent
+          distance={40}
+          duration={1}
+          blur
+        >
 
           <div>
 
-            <div className="inline-block px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm mb-6 backdrop-blur-xl">
               About CoWorkOS
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-6">
+            <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
               Unified CRM + ERP Platform
               for Modern Coworking Spaces
             </h2>
 
-            <p className="text-gray-400 text-base leading-relaxed mb-4">
+            <p className="text-gray-400 text-base leading-relaxed mb-5">
               <span className="text-white font-semibold">
                 CoWorkOS
               </span>{" "}
@@ -36,71 +90,99 @@ const Aboutsection = () => {
               from one unified dashboard.
             </p>
 
-            <p className="text-gray-400 text-base leading-relaxed mb-4">
+            <p className="text-gray-400 text-base leading-relaxed mb-5">
               Many coworking businesses still depend on
               spreadsheets, WhatsApp groups, manual tracking,
-              and disconnected software tools. As multiple
-              branches grow, operations become difficult
-              to manage efficiently.
+              and disconnected software tools.
             </p>
 
-            <p className="text-gray-400 text-base leading-relaxed mb-4">
+            <p className="text-gray-400 text-base leading-relaxed mb-5">
               CoWorkOS solves this problem by combining
               CRM and ERP functionalities into one smart
               ecosystem built for coworking businesses.
             </p>
 
 
+            {/* CRM */}
+            <AnimatedContent
+              distance={20}
+              duration={0.8}
+              delay={0.2}
+              blur
+            >
 
-            {/* CRM Explanation */}
+              <div className="mt-10 group">
 
-            <div className="mt-8">
+                <h3 className="text-2xl font-bold mb-3 text-blue-400 transition-all duration-300 group-hover:translate-x-1">
+                  What is CRM?
+                </h3>
 
-              <h3 className="text-2xl font-bold mb-3 text-blue-400">
-                What is CRM?
-              </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  CRM helps coworking operators manage
+                  leads, onboarding, renewals, bookings,
+                  and customer communication from one system.
+                </p>
 
-              <p className="text-gray-400 leading-relaxed">
-                CRM (Customer Relationship Management)
-                helps coworking operators manage clients,
-                leads, onboarding, renewals, bookings,
-                communication, and customer interactions
-                efficiently from a centralized system.
-              </p>
+              </div>
 
-            </div>
+            </AnimatedContent>
 
 
+            {/* ERP */}
+            <AnimatedContent
+              distance={20}
+              duration={0.8}
+              delay={0.3}
+              blur
+            >
 
-            {/* ERP Explanation */}
+              <div className="mt-10 group">
 
-            <div className="mt-8">
+                <h3 className="text-2xl font-bold mb-3 text-green-400 transition-all duration-300 group-hover:translate-x-1">
+                  What is ERP?
+                </h3>
 
-              <h3 className="text-2xl font-bold mb-3 text-green-400">
-                What is ERP?
-              </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  ERP manages finance, occupancy tracking,
+                  invoicing, workspace allocation,
+                  reports, and operational workflows.
+                </p>
 
-              <p className="text-gray-400 leading-relaxed">
-                ERP (Enterprise Resource Planning)
-                helps manage business operations such as
-                finance, invoicing, occupancy tracking,
-                workspace allocation, branch operations,
-                reports, and internal workflows in real-time.
-              </p>
+              </div>
 
-            </div>
+            </AnimatedContent>
 
           </div>
 
+        </AnimatedContent>
 
 
-          {/* Right Side Cards */}
 
-          <div className="space-y-5">
+        {/* RIGHT SIDE */}
+        <div className="space-y-5">
 
-            {/* Platform Overview */}
+          {/* Platform Overview */}
+          <AnimatedContent
+            distance={40}
+            duration={1}
+            delay={0.1}
+            blur
+          >
 
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md">
+            <div
+              className="
+                bg-white/[0.05]
+                border border-white/10
+                rounded-3xl
+                p-7
+                backdrop-blur-2xl
+                transition-all duration-500
+                hover:-translate-y-2
+                hover:border-blue-500/30
+                hover:bg-white/[0.07]
+                hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]
+              "
+            >
 
               <h3 className="text-2xl font-bold mb-4">
                 Platform Overview
@@ -116,73 +198,53 @@ const Aboutsection = () => {
 
             </div>
 
+          </AnimatedContent>
 
 
-            {/* Problem */}
+          {/* Cards */}
+          {cards.map((card, index) => (
 
-            <div className="border border-red-500/20 bg-red-500/10 rounded-2xl p-5">
+            <AnimatedContent
+              key={index}
+              distance={30}
+              duration={0.8}
+              delay={index * 0.15}
+              blur
+            >
 
-              <h4 className="text-xl font-semibold text-red-400 mb-2">
-                Problem
-              </h4>
+              <div
+                className={`
+                  rounded-3xl
+                  p-6
+                  border
+                  backdrop-blur-xl
+                  transition-all duration-500
+                  hover:-translate-y-2
+                  hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]
+                  ${card.color}
+                `}
+              >
 
-              <p className="text-gray-300 leading-relaxed">
-                A coworking company with multiple branches
-                struggles to track renewals, bookings,
-                occupancy, and payments because operations
-                are managed manually across spreadsheets
-                and separate tools.
-              </p>
+                <h4 className={`text-xl font-semibold mb-3 ${card.heading}`}>
+                  {card.title}
+                </h4>
 
-            </div>
+                <p className="text-gray-300 leading-relaxed">
+                  {card.text}
+                </p>
 
+              </div>
 
+            </AnimatedContent>
 
-            {/* Impact */}
-
-            <div className="border border-yellow-500/20 bg-yellow-500/10 rounded-2xl p-5">
-
-              <h4 className="text-xl font-semibold text-yellow-400 mb-2">
-                Impact
-              </h4>
-
-              <p className="text-gray-300 leading-relaxed">
-                Missed renewals, revenue leakage,
-                communication gaps, poor occupancy visibility,
-                and inefficient operations reduce overall
-                business growth and customer satisfaction.
-              </p>
-
-            </div>
-
-
-
-            {/* Solution */}
-
-            <div className="border border-green-500/20 bg-green-500/10 rounded-2xl p-5">
-
-              <h4 className="text-xl font-semibold text-green-400 mb-2">
-                Solution
-              </h4>
-
-              <p className="text-gray-300 leading-relaxed">
-                CoWorkOS automates renewals, centralizes
-                branch operations, manages finance,
-                tracks occupancy in real-time,
-                and streamlines coworking workflows
-                through one intelligent ERP platform.
-              </p>
-
-            </div>
-
-          </div>
+          ))}
 
         </div>
 
-      </section>
+      </div>
 
-    </div>
-  );
-};
+    </section>
+  )
+}
 
-export default Aboutsection;
+export default Aboutsection

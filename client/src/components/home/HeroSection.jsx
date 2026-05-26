@@ -1,99 +1,88 @@
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
+import ColorBends from "../../../reactbits/ColorBends"
+import GlassButton from "../ui/Glassbutton"
+import BlurText from "../../../reactbits/BlurTExts"
 const HeroSection = () => {
+  
+const handleAnimationComplete = () => {
+  console.log('Animation completed!');
+};
+
   return (
-     <section className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-14 items-center min-h-[80vh] text-white  ">
+    <section className="relative w-screen min-h-screen/2 overflow-hidden left-1/2 right-1/2 -translate-x-1/2 ">
 
-        {/* Left Content */}
+      {/* Background Layer */}
+      <div className="absolute inset-0 w-full h-full">
+        <ColorBends
+          colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+          rotation={90}
+          speed={0.4}
+          scale={0.8}
+          frequency={0.8}
+          warpStrength={1}
+          mouseInfluence={0}  
+          noise={0.15}
+          parallax={0.3}
+          iterations={1}
+          intensity={1}
+          bandWidth={3}
+          transparent
+          autoRotate={0}
+          color="#A855F7"
+        />
+      </div>
 
-        <div>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/40 z-10"></div>
 
-          <div className="inline-flex items-center gap-2 glass-card px-4 py-2 mb-6 text-sm sm:text-base">
-            <span className="w-2 h-2 rounded-full bg-green-400"></span>
-            Multi-Center Coworking ERP
+      {/* Content */}
+      <div className="relative z-20 max-w-7xl mx-auto min-h-screen flex items-center justify-center px-6">
+
+        <div className="w-full flex flex-col items-center text-center text-white">
+
+          <div className="inline-flex items-center justify-center gap-2 glass-card px-4 py-2 mb-6 text-xl sm:text-base ">
+            <span className="w-2 h-2 rounded-full bg-green-400 "></span>
+            Multi-Center Coworking CRM + ERP Platform
           </div>
 
+       <h1 className="w-full text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6">
 
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6">
-            Unified Operating System for Coworking Spaces
-          </h1>
+  <BlurText
+    text="Unified Operating System for Coworking Spaces"
+    delay={200}
+    animateBy="words"
+    direction="top"
+    onAnimationComplete={handleAnimationComplete}
+    className="inline-block"
+  />
 
-
-          <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+</h1>
+          <p className="w-full max-w-3xl text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
             Reduce revenue leakage, automate renewals,
             manage occupancy, and streamline coworking
             operations across multiple branches.
           </p>
 
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
 
-          <div className="flex flex-col sm:flex-row gap-4">
-
-            <Link
+            <GlassButton
               to="/login"
-              className="primary-btn flex items-center justify-center gap-2"
+              size="md"
+              glass
+
             >
               Explore Demo
-              <ArrowRight size={18} />
-            </Link>
+            </GlassButton>
 
-
-            <button className="glass-card px-6 py-3 text-sm sm:text-base">
-              View Features
-            </button>
 
           </div>
 
         </div>
 
+      </div>
 
-        {/* Right Dashboard Preview */}
-
-        <div className="glass-card p-4 sm:p-6 w-full overflow-hidden text-white">
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-
-            <div className="kpi-card">
-              <p className="text-gray-400 text-sm mb-2">
-                Occupancy
-              </p>
-
-              <h2 className="text-3xl sm:text-4xl font-bold">
-                82%
-              </h2>
-            </div>
-
-            <div className="kpi-card">
-              <p className="text-gray-400 text-sm mb-2">
-                Revenue
-              </p>
-
-              <h2 className="text-3xl sm:text-4xl font-bold">
-                $48.2k
-              </h2>
-            </div>
-
-          </div>
-
-          <div className="space-y-4">
-            <div className="dashboard-panel rounded-3xl bg-slate-950 p-4">
-              <p className="text-sm text-gray-400 mb-3">Branch utilization</p>
-              <div className="h-32 rounded-2xl bg-slate-900" />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="panel-card rounded-3xl bg-slate-950 p-4">
-                <p className="text-gray-400 text-sm">Active members</p>
-                <p className="text-xl font-bold">1,240</p>
-              </div>
-              <div className="panel-card rounded-3xl bg-slate-950 p-4">
-                <p className="text-gray-400 text-sm">Invoice due</p>
-                <p className="text-xl font-bold">$12.3k</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
+    </section>
   )
 }
 

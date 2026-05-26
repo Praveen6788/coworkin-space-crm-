@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 import {
 
@@ -24,18 +22,61 @@ import {
 
 } from "lucide-react";
 
-import { fetchLeadById } from "../../Api/lead";
+
+
+function FinancePage() {
 
 
 
-function Finance() {
+  /* ---------------------------------------
+     FAKE DATA
+  --------------------------------------- */
 
-  const { id } = useParams();
+
+
+  const [lead] = useState({
+
+    name: "Rahul Sharma",
+
+    phone: "+91 9876543210",
+
+    email: "rahul@startupx.com",
+
+    company: "StartupX Labs",
+
+    branch: "Madhapur",
+
+    workspace: "Private Cabin",
+
+    seats: 8,
+
+    moveIn: "2025-08-10",
 
 
 
-  const [lead, setLead] =
-    useState(null);
+    quotationAmount: "₹75,000",
+
+    discount: "₹5,000",
+
+    finalAmount: "₹70,000",
+
+
+
+    quotationStatus: "Sent",
+
+
+
+    paymentStatus: "Pending",
+
+
+
+    invoiceNumber: "INV-2039",
+
+
+
+    invoiceStatus: "Generated"
+
+  });
 
 
 
@@ -43,91 +84,20 @@ function Finance() {
     setQuotation] =
     useState({
 
-      quotationAmount: "",
+      quotationAmount:
+        lead.quotationAmount,
 
-      discount: "",
 
-      finalAmount: ""
+
+      discount:
+        lead.discount,
+
+
+
+      finalAmount:
+        lead.finalAmount
 
     });
-
-
-
-  /* ---------------------------------------
-     FETCH LEAD
-  --------------------------------------- */
-
-  useEffect(() => {
-
-    const loadLead =
-      async () => {
-
-        try {
-
-          const data =
-            await fetchLeadById(
-              id
-            );
-
-
-
-          setLead(data);
-
-
-
-          setQuotation({
-
-            quotationAmount:
-              data.quotationAmount ||
-              "₹65,000",
-
-
-
-            discount:
-              data.discount ||
-              "₹5,000",
-
-
-
-            finalAmount:
-              data.finalAmount ||
-              "₹60,000"
-
-          });
-
-        } catch (error) {
-
-          console.log(error);
-
-        }
-
-      };
-
-
-
-    loadLead();
-
-  }, [id]);
-
-
-
-  /* ---------------------------------------
-     LOADING
-  --------------------------------------- */
-
-  if (!lead) {
-
-    return (
-
-      <div className="min-h-screen bg-[#020617] flex items-center justify-center text-white">
-
-        Loading Finance Details...
-
-      </div>
-
-    );
-
-  }
 
 
 
@@ -151,7 +121,7 @@ function Finance() {
 
 
 
-        <h1 className="text-[38px] leading-none font-semibold text-white mb-4">
+        <h1 className="text-[40px] font-semibold text-white mb-4">
 
           Finance & Billing
 
@@ -162,8 +132,8 @@ function Finance() {
         <p className="text-slate-400 text-sm">
 
           Manage quotations,
-          invoices, payment and
-          workspace approvals.
+          invoices, payment
+          approvals and move-ins.
 
         </p>
 
@@ -171,7 +141,7 @@ function Finance() {
 
 
 
-      {/* MAIN GRID */}
+      {/* GRID */}
 
 
 
@@ -179,7 +149,7 @@ function Finance() {
 
 
 
-        {/* LEFT SIDE */}
+        {/* LEFT */}
 
 
 
@@ -187,13 +157,13 @@ function Finance() {
 
 
 
-          {/* CLIENT CARD */}
+          {/* CLIENT DETAILS */}
 
 
 
           <div className="bg-[#0F172A] border border-white/10 rounded-[28px] p-5">
 
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-6">
 
               <div>
 
@@ -205,7 +175,7 @@ function Finance() {
 
 
 
-                <h2 className="text-[24px] font-semibold text-white">
+                <h2 className="text-[26px] font-semibold text-white">
 
                   {lead.name}
 
@@ -216,15 +186,15 @@ function Finance() {
 
 
               <div className={`px-4 py-2 rounded-full text-[11px] font-medium ${
-                lead.paymentStatus === "Paid"
+                lead.paymentStatus ===
+                "Paid"
 
                   ? "bg-emerald-500/10 text-emerald-300"
 
                   : "bg-amber-500/10 text-amber-300"
               }`}>
 
-                {lead.paymentStatus ||
-                  "Pending"}
+                {lead.paymentStatus}
 
               </div>
 
@@ -232,15 +202,11 @@ function Finance() {
 
 
 
-            {/* DETAILS */}
-
-
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
 
 
-              <div className="bg-white/[0.03] rounded-2xl p-4 border border-white/5">
+              <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4">
 
                 <div className="flex items-center gap-2 mb-3">
 
@@ -271,7 +237,7 @@ function Finance() {
 
 
 
-              <div className="bg-white/[0.03] rounded-2xl p-4 border border-white/5">
+              <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4">
 
                 <div className="flex items-center gap-2 mb-3">
 
@@ -294,8 +260,7 @@ function Finance() {
 
                 <h3 className="text-white text-sm font-medium">
 
-                  {lead.email ||
-                    "Not Provided"}
+                  {lead.email}
 
                 </h3>
 
@@ -303,7 +268,7 @@ function Finance() {
 
 
 
-              <div className="bg-white/[0.03] rounded-2xl p-4 border border-white/5">
+              <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4">
 
                 <div className="flex items-center gap-2 mb-3">
 
@@ -334,7 +299,7 @@ function Finance() {
 
 
 
-              <div className="bg-white/[0.03] rounded-2xl p-4 border border-white/5">
+              <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4">
 
                 <div className="flex items-center gap-2 mb-3">
 
@@ -420,7 +385,6 @@ function Finance() {
 
               <input
                 type="text"
-                placeholder="Quotation Amount"
                 value={
                   quotation.quotationAmount
                 }
@@ -441,7 +405,6 @@ function Finance() {
 
               <input
                 type="text"
-                placeholder="Discount"
                 value={
                   quotation.discount
                 }
@@ -462,7 +425,6 @@ function Finance() {
 
               <input
                 type="text"
-                placeholder="Final Amount"
                 value={
                   quotation.finalAmount
                 }
@@ -488,8 +450,6 @@ function Finance() {
 
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-
-
 
               <button className="h-10 rounded-2xl bg-sky-500 hover:bg-sky-600 transition text-white text-[12px] font-medium">
 
@@ -529,7 +489,7 @@ function Finance() {
 
 
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT */}
 
 
 
@@ -590,8 +550,7 @@ function Finance() {
 
                 <h3 className="text-white text-sm font-medium">
 
-                  {lead.invoiceNumber ||
-                    "INV-000"}
+                  {lead.invoiceNumber}
 
                 </h3>
 
@@ -611,8 +570,7 @@ function Finance() {
 
                 <h3 className="text-white text-sm font-medium">
 
-                  {lead.invoiceStatus ||
-                    "Not Generated"}
+                  {lead.invoiceStatus}
 
                 </h3>
 
@@ -664,7 +622,7 @@ function Finance() {
 
                 <p className="text-slate-500 text-[10px] uppercase tracking-[0.18em] mb-2">
 
-                  Booking
+                  Move-In
 
                 </p>
 
@@ -672,7 +630,7 @@ function Finance() {
 
                 <h2 className="text-[22px] font-semibold text-white">
 
-                  Move-In Status
+                  Access Control
 
                 </h2>
 
@@ -712,8 +670,7 @@ function Finance() {
 
               <h3 className="text-white text-sm font-medium">
 
-                {lead.moveIn ||
-                  "Immediate"}
+                {lead.moveIn}
 
               </h3>
 
@@ -780,26 +737,11 @@ function Finance() {
 
 
 
-            <div className={`rounded-2xl p-5 border ${
-              lead.paymentStatus ===
-              "Paid"
+            <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5">
 
-                ? "bg-emerald-500/10 border-emerald-500/20"
+              <h3 className="text-amber-300 font-semibold mb-2">
 
-                : "bg-amber-500/10 border-amber-500/20"
-            }`}>
-
-              <h3 className={`font-semibold mb-2 ${
-                lead.paymentStatus ===
-                "Paid"
-
-                  ? "text-emerald-300"
-
-                  : "text-amber-300"
-              }`}>
-
-                {lead.paymentStatus ||
-                  "Pending"}
+                Payment Pending
 
               </h3>
 
@@ -807,12 +749,8 @@ function Finance() {
 
               <p className="text-sm text-slate-300">
 
-                {lead.paymentStatus ===
-                "Paid"
-
-                  ? "Client payment completed successfully."
-
-                  : "Waiting for client payment confirmation."}
+                Waiting for client
+                payment confirmation.
 
               </p>
 
@@ -832,4 +770,4 @@ function Finance() {
 
 
 
-export default Finance;
+export default FinancePage;

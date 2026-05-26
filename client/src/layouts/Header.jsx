@@ -120,7 +120,7 @@ const clientNav = [
 
   return (
 
-    <header className="bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/10 text-white sticky top-0 z-50 bg-black">
+    <header className="fixed top-0 left-0 w-full z-50 text-white h-[70px] bg-black">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between">
 

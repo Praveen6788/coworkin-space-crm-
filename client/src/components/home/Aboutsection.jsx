@@ -64,7 +64,7 @@ const Aboutsection = () => {
         {/* LEFT SIDE */}
         <AnimatedContent
           distance={40}
-          duration={1}
+          duration={0.6}
           blur
         >
 
@@ -106,7 +106,7 @@ const Aboutsection = () => {
             {/* CRM */}
             <AnimatedContent
               distance={20}
-              duration={0.8}
+              duration={0.6}
               delay={0.2}
               blur
             >
@@ -131,7 +131,7 @@ const Aboutsection = () => {
             {/* ERP */}
             <AnimatedContent
               distance={20}
-              duration={0.8}
+              duration={0.6}
               delay={0.3}
               blur
             >
@@ -164,8 +164,8 @@ const Aboutsection = () => {
           {/* Platform Overview */}
           <AnimatedContent
             distance={40}
-            duration={1}
-            delay={0.1}
+            duration={0.6}
+            delay={0.2}
             blur
           >
 
@@ -207,7 +207,7 @@ const Aboutsection = () => {
             <AnimatedContent
               key={index}
               distance={30}
-              duration={0.8}
+              duration={0.6}
               delay={index * 0.15}
               blur
             >

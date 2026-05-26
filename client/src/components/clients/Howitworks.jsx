@@ -1,127 +1,323 @@
 import {
   Search,
   CalendarCheck2,
-  DoorOpen
-} from "lucide-react";
+  DoorOpen,
+} from "lucide-react"
+
+import AnimatedContent from "../../../reactbits/Animate"
 
 function HowItWorks() {
 
   const steps = [
 
     {
-      icon: <Search size={28} strokeWidth={1.8} />,
-      title: "Browse Spaces",
+      icon: <Search size={20} strokeWidth={1.8} />,
+      title: "Browse",
       description:
-        "Explore coworking spaces, private cabins and meeting rooms based on location and amenities."
+        "Explore workspaces based on your needs.",
+      iconBg:
+        "bg-sky-500/10 text-sky-500",
     },
 
     {
-      icon: <CalendarCheck2 size={28} strokeWidth={1.8} />,
-      title: "Choose Your Slot",
+      icon: <CalendarCheck2 size={20} strokeWidth={1.8} />,
+      title: "Choose Slot",
       description:
-        "Select your preferred date, workspace type and booking duration instantly."
+        "Select workspace and booking duration.",
+      iconBg:
+        "bg-violet-500/10 text-violet-500",
     },
 
     {
-      icon: <DoorOpen size={28} strokeWidth={1.8} />,
-      title: "Book & Access",
+      icon: <DoorOpen size={20} strokeWidth={1.8} />,
+      title: "Book Access",
       description:
-        "Confirm your booking and receive seamless workspace access details."
-    }
+        "Confirm booking and access instantly.",
+      iconBg:
+        "bg-emerald-500/10 text-emerald-500",
+    },
 
-  ];
+  ]
 
 
   return (
 
-    <section className="py-24 bg-[#FAFAFA] overflow-hidden">
+    <section className="
+      py-8
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      bg-[#F8FAFC]
+    ">
+
+      <div className="
+        max-w-7xl
+        mx-auto
+
+        px-6 lg:px-12
+      ">
 
         {/* HEADER */}
 
-        <div className="max-w-3xl mb-16">
+        <AnimatedContent
+          distance={15}
+          duration={0.5}
+        >
 
-          <p className="text-sky-500 text-[12px] tracking-[0.25em] uppercase font-medium mb-4">
+          <div className="
+            flex
+            flex-col
+            lg:flex-row
 
-            Simple Workflow
+            lg:items-end
+            lg:justify-between
 
-          </p>
+            gap-5
 
-          <h2 className="text-[46px] leading-[1.1] tracking-[-0.04em] font-semibold text-[#0F172A] mb-5">
+            mb-8
+          ">
 
-            Book your workspace
-            in just a few clicks.
+            {/* LEFT */}
 
-          </h2>
+            <div className="max-w-2xl">
 
-          <p className="text-slate-500 text-[16px] leading-[1.9]">
+              <div className="
+                inline-flex items-center
 
-            Discover, reserve and access premium coworking spaces
-            designed for modern professionals and growing teams.
+                px-3 py-1.5
 
-          </p>
+                rounded-full
 
-        </div>
+                bg-sky-50
+                border border-sky-100
+
+                text-sky-600
+                text-[11px]
+                font-medium
+
+                tracking-[0.18em]
+                uppercase
+
+                mb-4
+              ">
+
+                Simple Workflow
+
+              </div>
+
+
+              <h2 className="
+                text-3xl
+                lg:text-4xl
+
+                leading-[1.05]
+
+                tracking-[-0.05em]
+
+                font-semibold
+
+                text-[#0F172A]
+
+                mb-3
+              ">
+
+                Book workspace
+                in minutes.
+
+              </h2>
+
+
+              <p className="
+                text-slate-500
+
+                text-[14px]
+
+                leading-[1.8]
+
+                max-w-xl
+              ">
+
+                Discover and reserve premium
+                coworking spaces with a
+                seamless booking experience.
+
+              </p>
+
+            </div>
+
+
+
+            {/* RIGHT */}
+
+            <div className="
+              hidden lg:flex
+
+              items-center gap-3
+            ">
+
+              <div className="
+                px-4 py-3
+
+                rounded-2xl
+
+                bg-white
+
+                border border-slate-200
+              ">
+
+                <p className="
+                  text-[10px]
+
+                  uppercase
+
+                  tracking-[0.15em]
+
+                  text-slate-400
+
+                  mb-1
+                ">
+
+                  Process
+
+                </p>
+
+                <h3 className="
+                  text-lg
+
+                  font-semibold
+
+                  text-[#0F172A]
+                ">
+
+                  3 Steps
+
+                </h3>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </AnimatedContent>
 
 
 
         {/* STEPS */}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="
+          grid
+          grid-cols-1
+          md:grid-cols-3
+
+          gap-4
+        ">
 
           {steps.map((step, index) => (
 
-            <div
+            <AnimatedContent
               key={index}
-              className="relative group bg-white border border-slate-200 rounded-[30px] p-8 hover:shadow-[0_20px_60px_rgba(15,23,42,0.06)] transition duration-300"
+              distance={15}
+              duration={0.5}
+              delay={index * 0.05}
+              className="h-full"
             >
 
-              {/* STEP NUMBER */}
+              <div className="
+                relative
 
-              <div className="absolute top-6 right-6 text-[56px] font-semibold tracking-[-0.05em] text-slate-100 select-none">
+                h-full
 
-                0{index + 1}
+                bg-white
+
+                border border-slate-200
+
+                rounded-2xl
+
+                p-5
+
+                transition-all duration-300
+
+                hover:shadow-lg
+                hover:-translate-y-1
+              ">
+
+                {/* NUMBER */}
+
+                <div className="
+                  absolute
+                  top-4 right-4
+
+                  text-3xl
+
+                  font-semibold
+
+                  tracking-[-0.05em]
+
+                  text-slate-100
+                ">
+
+                  0{index + 1}
+
+                </div>
+
+
+
+                {/* ICON */}
+
+                <div
+                  className={`
+                    w-11 h-11
+
+                    rounded-xl
+
+                    flex items-center justify-center
+
+                    mb-4
+
+                    ${step.iconBg}
+                  `}
+                >
+
+                  {step.icon}
+
+                </div>
+
+
+
+                {/* TITLE */}
+
+                <h3 className="
+                  text-[18px]
+
+                  font-semibold
+
+                  text-[#0F172A]
+
+                  mb-2
+                ">
+
+                  {step.title}
+
+                </h3>
+
+
+
+                {/* DESC */}
+
+                <p className="
+                  text-slate-500
+
+                  text-[13px]
+
+                  leading-[1.7]
+                ">
+
+                  {step.description}
+
+                </p>
 
               </div>
 
-
-
-              {/* ICON */}
-
-              <div className="w-16 h-16 rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center mb-8 group-hover:scale-105 transition">
-
-                {step.icon}
-
-              </div>
-
-
-
-              {/* TITLE */}
-
-              <h3 className="text-[24px] leading-tight font-semibold text-[#0F172A] mb-4">
-
-                {step.title}
-
-              </h3>
-
-
-
-              {/* DESCRIPTION */}
-
-              <p className="text-slate-500 text-[15px] leading-[1.9] max-w-sm">
-
-                {step.description}
-
-              </p>
-
-
-
-              {/* BOTTOM LINE */}
-
-              <div className="w-14 h-[2px] bg-sky-100 rounded-full mt-8"></div>
-
-            </div>
+            </AnimatedContent>
 
           ))}
 
@@ -130,8 +326,7 @@ function HowItWorks() {
       </div>
 
     </section>
-
-  );
+  )
 }
 
-export default HowItWorks;
+export default HowItWorks

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from "react"
 
 import {
   Link,
   useSearchParams,
   useNavigate
-} from "react-router-dom";
+} from "react-router-dom"
 
 import {
   MapPin,
@@ -12,39 +12,32 @@ import {
   ArrowRight,
   Search,
   Phone,
-  User
-} from "lucide-react";
+  User,
+  Building2
+} from "lucide-react"
 
-import { branches } from "../../data/branches";
+import { branches } from "../../data/branches"
 
-import { createLead } from "../../Api/lead";
+import { createLead } from "../../Api/lead"
+
+import AnimatedContent from "../../../reactbits/Animate"
 
 function BookingsPage() {
 
   const [searchParams] =
-    useSearchParams();
-
-
+    useSearchParams()
 
   const navigate =
-    useNavigate();
-
-
+    useNavigate()
 
   const initialWorkspace =
-    searchParams.get("workspace") || "";
-
-
+    searchParams.get("workspace") || ""
 
   const [workspaceType, setWorkspaceType] =
-    useState(initialWorkspace);
-
-
+    useState(initialWorkspace)
 
   const [search, setSearch] =
-    useState("");
-
-
+    useState("")
 
   const [formData, setFormData] =
     useState({
@@ -57,13 +50,10 @@ function BookingsPage() {
         initialWorkspace ||
         "Private Cabin"
 
-    });
+    })
 
 
-
-  /* ------------------------------------------
-     HANDLE INPUT
-  ------------------------------------------ */
+  /* HANDLE INPUT */
 
   const handleChange = (e) => {
 
@@ -74,15 +64,12 @@ function BookingsPage() {
       [e.target.name]:
         e.target.value
 
-    });
+    })
 
-  };
+  }
 
 
-
-  /* ------------------------------------------
-     FILTER BRANCHES
-  ------------------------------------------ */
+  /* FILTER */
 
   const filteredBranches =
     branches.filter((branch) => {
@@ -92,35 +79,28 @@ function BookingsPage() {
           .toLowerCase()
           .includes(
             search.toLowerCase()
-          );
-
-
+          )
 
       const matchesWorkspace =
         workspaceType
 
           ? branch.pricing.some(
-              (item) =>
-                item.category ===
-                workspaceType
-            )
+            (item) =>
+              item.category ===
+              workspaceType
+          )
 
-          : true;
-
-
+          : true
 
       return (
         matchesSearch &&
         matchesWorkspace
-      );
+      )
 
-    });
+    })
 
 
-
-  /* ------------------------------------------
-     BOOK NOW
-  ------------------------------------------ */
+  /* BOOK */
 
   const handleBooking =
     async (branch) => {
@@ -133,69 +113,38 @@ function BookingsPage() {
 
           phone: formData.phone,
 
-
-
           company:
             "Direct Booking",
-
-
 
           email:
             "Not Provided",
 
-
-
           workspace:
             formData.workspace,
 
-
-
           seats: 4,
-
-
 
           branch:
             branch.name,
 
-
-
           budget:
             "₹50K / month",
-
-
 
           moveIn:
             "Immediate",
 
-
-
           stage: "new",
-
-
 
           priority:
             "Medium"
 
-        };
+        }
 
-
-
-        console.log(
-          "Creating Lead:",
-          newLead
-        );
-
-
-
-        await createLead(newLead);
-
-
+        await createLead(newLead)
 
         alert(
           `${branch.name} booking added successfully`
-        );
-
-
+        )
 
         setFormData({
 
@@ -207,90 +156,300 @@ function BookingsPage() {
             workspaceType ||
             "Private Cabin"
 
-        });
-
-
-
-        /* REDIRECT */
+        })
 
         navigate(
           `/bookings/${branch.slug}`
-        );
+        )
 
       } catch (error) {
 
-        console.log(error);
-
-
+        console.log(error)
 
         alert(
           "Failed to create booking"
-        );
+        )
 
       }
 
-    };
-
+    }
 
 
   return (
 
-    <div className="bg-[#FAFAFA] min-h-screen">
+    <div className="min-h-screen bg-[#F8FAFC] mt-15">
 
       {/* HERO */}
 
-      <section className="bg-white border-b border-slate-100 pt-28 pb-16">
+      <section className="
+        h-[35vh]
+        min-h-[320px]
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        bg-gradient-to-br
+        from-sky-50
+        via-white
+        to-blue-50
 
-          <div className="max-w-3xl">
+        border-b border-slate-200
 
-            <p className="text-sky-500 text-[11px] tracking-[0.25em] uppercase font-medium mb-5">
+        flex items-center
+      ">
 
-              Workspace Booking
+        <div className="
+          max-w-7xl
+          mx-auto
 
-            </p>
+          w-full
+
+          px-6 lg:px-12
+        ">
+
+          <AnimatedContent
+            distance={20}
+            duration={0.5}
+          >
+
+            <div className="
+              max-w-4xl
+            ">
+
+              {/* TOP */}
+
+              <div className="
+                flex
+                flex-col
+                lg:flex-row
+
+                lg:items-end
+                lg:justify-between
+
+                gap-6
+              ">
+
+                {/* LEFT */}
+
+                <div>
+
+                  <div className="
+                    inline-flex items-center gap-2
+
+                    px-4 py-2
+
+                    rounded-full
+
+                    bg-white
+
+                    border border-slate-200
+
+                    text-sky-600
+                    text-xs
+                    font-medium
+
+                    shadow-sm
+
+                    mb-4
+                  ">
+
+                    <Building2 size={14} />
+
+                    Workspace Booking
+
+                  </div>
+
+
+                  <h1 className="
+                    text-3xl
+                    sm:text-4xl
+                    lg:text-5xl
+
+                    leading-[1]
+
+                    tracking-[-0.05em]
+
+                    font-semibold
+
+                    text-[#0F172A]
+
+                    mb-4
+                  ">
+
+                    {workspaceType
+
+                      ? `${workspaceType} Workspaces`
+
+                      : "Find your perfect workspace"}
+
+                  </h1>
+
+
+                  <p className="
+                    text-slate-500
+
+                    text-[14px]
+
+                    leading-[1.8]
+
+                    max-w-2xl
+                  ">
+
+                    Discover premium coworking spaces
+                    for startups, creators,
+                    remote teams and modern businesses.
+
+                  </p>
+
+                </div>
 
 
 
-            <h1 className="text-[54px] leading-[1] tracking-[-0.05em] font-semibold text-[#0F172A] mb-6">
+                {/* STATS */}
 
-              {workspaceType
+                <div className="
+                  flex items-center gap-3
+                ">
 
-                ? `${workspaceType} Workspaces`
+                  <div className="
+                    px-4 py-3
 
-                : "Find your perfect coworking workspace."}
+                    rounded-2xl
 
-            </h1>
+                    bg-white
+
+                    border border-slate-200
+
+                    shadow-sm
+                  ">
+
+                    <p className="
+                      text-[10px]
+
+                      uppercase
+
+                      tracking-[0.15em]
+
+                      text-slate-400
+
+                      mb-1
+                    ">
+
+                      Locations
+
+                    </p>
+
+                    <h3 className="
+                      text-lg
+
+                      font-semibold
+
+                      text-[#0F172A]
+                    ">
+
+                      {filteredBranches.length}
+
+                    </h3>
+
+                  </div>
 
 
 
-            <p className="text-slate-500 text-[16px] leading-[1.9] max-w-2xl">
+                  <div className="
+                    px-4 py-3
 
-              Discover premium coworking spaces across Hyderabad.
+                    rounded-2xl
 
-            </p>
+                    bg-white
 
-          </div>
+                    border border-slate-200
+
+                    shadow-sm
+                  ">
+
+                    <p className="
+                      text-[10px]
+
+                      uppercase
+
+                      tracking-[0.15em]
+
+                      text-slate-400
+
+                      mb-1
+                    ">
+
+                      Available
+
+                    </p>
+
+                    <h3 className="
+                      text-lg
+
+                      font-semibold
+
+                      text-emerald-600
+                    ">
+
+                      Open
+
+                    </h3>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </AnimatedContent>
 
 
 
           {/* FILTERS */}
 
-          <div className="mt-10 bg-white border border-slate-200 rounded-[28px] p-4">
+          <div className="
+            mt-6
 
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            bg-white/90
+
+            backdrop-blur-xl
+
+            border border-slate-200
+
+            rounded-2xl
+
+            shadow-lg
+
+            p-3
+          ">
+
+            <div className="
+              grid
+              grid-cols-1
+              lg:grid-cols-4
+
+              gap-3
+            ">
 
               {/* SEARCH */}
 
-              <div className="flex items-center gap-3 h-13 px-5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="
+                flex items-center gap-3
+
+                h-11
+
+                px-4
+
+                rounded-xl
+
+                bg-slate-50
+
+                border border-slate-100
+              ">
 
                 <Search
-                  size={18}
+                  size={15}
                   className="text-slate-400"
                 />
-
-
 
                 <input
                   type="text"
@@ -301,7 +460,15 @@ function BookingsPage() {
                       e.target.value
                     )
                   }
-                  className="w-full bg-transparent outline-none text-[14px]"
+                  className="
+                    w-full
+
+                    bg-transparent
+
+                    outline-none
+
+                    text-[13px]
+                  "
                 />
 
               </div>
@@ -316,9 +483,7 @@ function BookingsPage() {
 
                   setWorkspaceType(
                     e.target.value
-                  );
-
-
+                  )
 
                   setFormData({
 
@@ -327,56 +492,48 @@ function BookingsPage() {
                     workspace:
                       e.target.value
 
-                  });
+                  })
 
                 }}
-                className="h-13 px-5 rounded-2xl border border-slate-200 outline-none text-[14px]"
+                className="
+                  h-11
+
+                  px-4
+
+                  rounded-xl
+
+                  border border-slate-200
+
+                  outline-none
+
+                  text-[13px]
+
+                  bg-white
+                "
               >
 
                 <option value="">
-
                   Workspace Type
-
                 </option>
-
-
 
                 <option value="Private Cabin">
-
                   Private Cabin
-
                 </option>
-
-
 
                 <option value="Meeting Room">
-
                   Meeting Room
-
                 </option>
-
-
 
                 <option value="Day Pass">
-
                   Day Pass
-
                 </option>
-
-
 
                 <option value="Hot Desks">
-
                   Hot Desks
-
                 </option>
 
-
-
                 <option value="Event Space">
-
                   Event Space
-
                 </option>
 
               </select>
@@ -385,14 +542,24 @@ function BookingsPage() {
 
               {/* NAME */}
 
-              <div className="flex items-center gap-3 h-13 px-5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="
+                flex items-center gap-3
+
+                h-11
+
+                px-4
+
+                rounded-xl
+
+                bg-slate-50
+
+                border border-slate-100
+              ">
 
                 <User
-                  size={18}
+                  size={15}
                   className="text-slate-400"
                 />
-
-
 
                 <input
                   type="text"
@@ -400,7 +567,15 @@ function BookingsPage() {
                   placeholder="Full Name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-transparent outline-none text-[14px]"
+                  className="
+                    w-full
+
+                    bg-transparent
+
+                    outline-none
+
+                    text-[13px]
+                  "
                 />
 
               </div>
@@ -409,14 +584,24 @@ function BookingsPage() {
 
               {/* PHONE */}
 
-              <div className="flex items-center gap-3 h-13 px-5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="
+                flex items-center gap-3
+
+                h-11
+
+                px-4
+
+                rounded-xl
+
+                bg-slate-50
+
+                border border-slate-100
+              ">
 
                 <Phone
-                  size={18}
+                  size={15}
                   className="text-slate-400"
                 />
-
-
 
                 <input
                   type="text"
@@ -424,7 +609,15 @@ function BookingsPage() {
                   placeholder="Phone Number"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full bg-transparent outline-none text-[14px]"
+                  className="
+                    w-full
+
+                    bg-transparent
+
+                    outline-none
+
+                    text-[13px]
+                  "
                 />
 
               </div>
@@ -439,207 +632,371 @@ function BookingsPage() {
 
 
 
-      {/* GRID */}
+      {/* LISTINGS */}
 
-      <section className="py-14">
+      <section className="py-8">
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+  <div className="
+    max-w-7xl
+    mx-auto
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+    px-6 lg:px-12
+  ">
 
-            {filteredBranches.map((branch) => {
+    <div className="
+      grid
+      grid-cols-1
+      sm:grid-cols-2
+      xl:grid-cols-3
 
-              const selectedPlan =
-                workspaceType
+      gap-4
+    ">
 
-                  ? branch.pricing.find(
-                      (item) =>
-                        item.category ===
-                        workspaceType
-                    )
+      {filteredBranches.map((branch, index) => {
 
-                  : branch.pricing[0];
+        const selectedPlan =
+          workspaceType
 
+            ? branch.pricing.find(
+                (item) =>
+                  item.category ===
+                  workspaceType
+              )
 
+            : branch.pricing[0]
 
-              return (
+        return (
 
-                <div
-                  key={branch.id}
-                  className="bg-white border border-slate-200 rounded-[28px] overflow-hidden hover:shadow-[0_16px_40px_rgba(15,23,42,0.05)] transition duration-300"
-                >
+          <AnimatedContent
+            key={branch.id}
+            distance={15}
+            duration={0.45}
+            delay={index * 0.03}
+          >
 
-                  {/* IMAGE */}
+            <div
+              className="
+                group
 
-                  <div className="relative h-[220px] overflow-hidden">
+                bg-white
 
-                    <img
-                      src={branch.image}
-                      alt={branch.name}
-                      className="w-full h-full object-cover hover:scale-105 transition duration-500"
-                    />
+                border border-slate-200
 
+                rounded-2xl
 
+                overflow-hidden
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
+                transition-all duration-300
 
+                hover:shadow-lg
+                hover:border-slate-300
+                hover:-translate-y-1
+              "
+            >
 
+              {/* IMAGE */}
 
-                    <div className="absolute bottom-4 left-4">
+              <div className="
+                relative
 
-                      <p className="text-white/70 text-[11px] mb-1 flex items-center gap-2">
+                h-[190px]
 
-                        <MapPin size={12} />
+                overflow-hidden
+              ">
 
-                        Hyderabad
+                <img
+                  src={branch.image}
+                  alt={branch.name}
+                  className="
+                    w-full h-full
 
-                      </p>
+                    object-cover
 
+                    transition-transform duration-500
 
+                    group-hover:scale-105
+                  "
+                />
 
-                      <h3 className="text-[26px] leading-tight font-semibold text-white">
 
-                        {branch.name}
+                {/* Overlay */}
 
-                      </h3>
+                <div className="
+                  absolute inset-0
 
-                    </div>
+                  bg-gradient-to-t
+                  from-black/60
+                  via-transparent
+                  to-transparent
+                "></div>
 
-                  </div>
 
+                {/* Badge */}
 
+                <div className="
+                  absolute
+                  top-3 left-3
 
-                  {/* CONTENT */}
+                  px-2.5 py-1
 
-                  <div className="p-5">
+                  rounded-full
 
-                    <p className="text-slate-500 text-[13px] leading-[1.7] mb-5 line-clamp-2">
+                  bg-white/10
 
-                      {branch.address}
+                  backdrop-blur-sm
 
-                    </p>
+                  text-white
+                  text-[10px]
+                  font-medium
+                ">
 
+                  Premium Workspace
 
+                </div>
 
-                    {/* PRICE */}
 
-                    <div className="grid grid-cols-2 gap-3 mb-5">
+                {/* Occupancy */}
 
-                      <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                <div className="
+                  absolute
+                  top-3 right-3
 
-                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400 mb-2">
+                  px-2.5 py-1
 
-                          {selectedPlan?.category}
+                  rounded-full
 
-                        </p>
+                  bg-emerald-500
 
+                  text-white
+                  text-[10px]
+                  font-medium
+                ">
 
+                  {branch.occupancy}% Occupied
 
-                        <h3 className="text-[20px] font-semibold text-[#0F172A]">
+                </div>
 
-                          {selectedPlan?.price}
 
-                        </h3>
+                {/* Bottom */}
 
-                      </div>
+                <div className="
+                  absolute
+                  bottom-3 left-3 right-3
+                ">
 
+                  <h3 className="
+                    text-[20px]
 
+                    leading-tight
 
-                      <div className="bg-sky-50 rounded-2xl p-4 border border-sky-100">
+                    font-semibold
 
-                        <p className="text-[10px] uppercase tracking-[0.18em] text-sky-500 mb-2">
+                    text-white
 
-                          Occupancy
+                    mb-1
+                  ">
 
-                        </p>
+                    {branch.name}
 
+                  </h3>
 
 
-                        <h3 className="text-[20px] font-semibold text-sky-600">
+                  <div className="
+                    flex items-center gap-1.5
 
-                          {branch.occupancy}%
+                    text-white/70
+                    text-[11px]
+                  ">
 
-                        </h3>
+                    <MapPin size={12} />
 
-                      </div>
-
-                    </div>
-
-
-
-                    {/* STATS */}
-
-                    <div className="flex items-center justify-between text-[13px] text-slate-500 mb-6">
-
-                      <div className="flex items-center gap-2">
-
-                        <Users size={15} />
-
-                        {branch.availableSeats} Seats Left
-
-                      </div>
-
-
-
-                      <div className="text-emerald-500 font-medium">
-
-                        {branch.activeClients}+ Clients
-
-                      </div>
-
-                    </div>
-
-
-
-                    {/* BUTTONS */}
-
-                    <div className="flex items-center gap-3">
-
-                      <Link
-                        // onClick={() =>
-                        //   handleBooking(branch)
-                        // }
-                         to={`/bookings/${branch.slug}`}
-                        className="flex-1 h-11 rounded-2xl bg-sky-500 hover:bg-sky-600 transition text-white text-[13px] font-medium flex items-center justify-center gap-2"
-                      >
-
-                        Book Now
-
-                        <ArrowRight size={15} />
-
-                      </Link>
-
-
-
-                      <Link
-                        to={`/bookings/${branch.slug}`}
-                        className="h-11 px-4 rounded-2xl border border-slate-200 hover:border-sky-200 hover:bg-sky-50 transition text-[13px] font-medium text-[#0F172A] flex items-center justify-center"
-                      >
-
-                        Details
-
-                      </Link>
-
-                    </div>
+                    Hyderabad
 
                   </div>
 
                 </div>
 
-              );
+              </div>
 
-            })}
 
-          </div>
 
-        </div>
+              {/* CONTENT */}
 
-      </section>
+              <div className="p-4">
+
+                {/* ADDRESS */}
+
+                <p className="
+                  text-slate-500
+
+                  text-[13px]
+
+                  leading-[1.6]
+
+                  line-clamp-2
+
+                  min-h-[42px]
+
+                  mb-4
+                ">
+
+                  {branch.address}
+
+                </p>
+
+
+
+                {/* Amenities */}
+
+                <div className="
+                  flex flex-wrap
+
+                  gap-2
+
+                  mb-4
+                ">
+
+                  {[
+                    "Wifi",
+                    "24×7",
+                    "Parking",
+                  ].map((item, i) => (
+
+                    <div
+                      key={i}
+                      className="
+                        px-2.5 py-1
+
+                        rounded-full
+
+                        bg-slate-100
+
+                        text-[11px]
+                        font-medium
+
+                        text-slate-600
+                      "
+                    >
+
+                      {item}
+
+                    </div>
+
+                  ))}
+
+                </div>
+
+
+
+                {/* PRICE */}
+
+                <div className="
+                  flex items-end justify-between
+
+                  mb-4
+                ">
+
+                  <div>
+
+                    <p className="
+                      text-[10px]
+
+                      uppercase
+
+                      tracking-[0.15em]
+
+                      text-slate-400
+
+                      mb-1
+                    ">
+
+                      {selectedPlan?.category}
+
+                    </p>
+
+                    <h3 className="
+                      text-[22px]
+
+                      font-semibold
+
+                      text-[#0F172A]
+                    ">
+
+                      {selectedPlan?.price}
+
+                    </h3>
+
+                  </div>
+
+
+                  <div className="
+                    flex items-center gap-1.5
+
+                    text-[12px]
+
+                    text-slate-500
+                  ">
+
+                    <Users size={13} />
+
+                    {branch.availableSeats} Seats
+
+                  </div>
+
+                </div>
+
+
+
+                {/* CTA */}
+
+                <Link
+                  to={`/bookings/${branch.slug}`}
+                  className="
+                    h-10
+
+                    w-full
+
+                    rounded-xl
+
+                    bg-sky-500
+                    hover:bg-sky-600
+
+                    transition-all duration-300
+
+                    text-white
+                    text-[13px]
+                    font-medium
+
+                    flex items-center justify-center gap-2
+                  "
+                >
+
+                  View Workspace
+
+                  <ArrowRight size={14} />
+
+                </Link>
+
+              </div>
+
+            </div>
+
+          </AnimatedContent>
+
+        )
+
+      })}
 
     </div>
 
-  );
+  </div>
+
+</section>
+
+    </div>
+
+  )
 
 }
 
-export default BookingsPage;
+export default BookingsPage

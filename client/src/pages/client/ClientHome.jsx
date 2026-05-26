@@ -9,6 +9,7 @@ import Locations from "../../components/clients/Locations";
 import Amenities from "../../components/clients/Amenities";
 import BookingsPage from "../../components/clients/Bookings";
 
+
 function HomePage() {
 
   return (
@@ -20,6 +21,7 @@ function HomePage() {
       <Locations/>
       <FeaturedSpace />
       <Amenities/>
+     
     </div>
 
   );

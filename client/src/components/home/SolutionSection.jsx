@@ -87,7 +87,7 @@ const SolutionSection = () => {
         {/* Heading */}
         <AnimatedContent
           distance={40}
-          duration={1}
+          duration={0.6}
           blur
           className="text-center mb-16"
         >
@@ -117,7 +117,7 @@ const SolutionSection = () => {
     <AnimatedContent
       key={index}
       distance={40}
-      duration={0.9}
+      duration={0.6}
       delay={index * 0.1}
       blur
       className="h-full"
@@ -216,7 +216,7 @@ const SolutionSection = () => {
 
           <AnimatedContent
             distance={40}
-            duration={1}
+            duration={0.6}
             blur
             className="text-center mb-14"
           >

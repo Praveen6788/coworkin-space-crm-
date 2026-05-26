@@ -14,7 +14,7 @@ const ProblemSection = () => {
         {/* Heading */}
         <AnimatedContent
           distance={40}
-          duration={1}
+          duration={0.6}
           ease="expo.out"
           className="text-center mb-16"
         >
@@ -69,7 +69,7 @@ const ProblemSection = () => {
             <AnimatedContent
               key={index}
               distance={40}
-              duration={0.8}
+              duration={0.6}
               delay={index * 0.15}
               ease="expo.out"
             >
@@ -113,7 +113,7 @@ const ProblemSection = () => {
         {/* Bottom Highlight */}
         <AnimatedContent
           distance={50}
-          duration={1}
+          duration={0.6}
           delay={0.2}
           ease="expo.out"
           className="mt-16"

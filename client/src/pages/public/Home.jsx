@@ -11,7 +11,8 @@ import ProblemSection from "../../components/home/ProblemSection"
 import SolutionSection from "../../components/home/SolutionSection";
 import CTASection from "../../components/home/CTASection";
 import FeatureCards from "../../components/home/FeatureCards";
-import AboutSection from "../../components/home/AboutSection";
+import AboutSection from "@/components/home/AboutSection";
+
 
 
 function Home() {

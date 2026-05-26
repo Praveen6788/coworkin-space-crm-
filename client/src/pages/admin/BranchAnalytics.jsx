@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import BranchSelector from "../../components/branchAnalytics/BranchSelector";
-import BranchMetricCards from "../../components/branchAnalytics/BranchMetricCards";
-import ResourceCalendar from "../../components/branchAnalytics/ResourceCalendar";
-import BranchMembersTable from "../../components/branchAnalytics/BranchMembersTable";
+import BranchSelector from "../../components/branchanalytics/BranchSelector";
+import BranchMetricCards from "../../components/branchanalytics/BranchMetricCards";
+import ResourceCalendar from "../../components/branchanalytics/ResourceCalendar";
+import BranchMembersTable from "../../components/branchanalytics/BranchMembersTable";
 
 import GlassCard from "../../components/ui/GlassCard";
 

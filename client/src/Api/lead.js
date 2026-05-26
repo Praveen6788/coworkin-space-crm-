@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const API =
-  "http://localhost:5000/api/leads";
+  `${import.meta.env.VITE_API_URL}/api/leads`;
 
 
 
@@ -36,7 +36,9 @@ export const fetchLeads =
   async () => {
 
     const response =
-      await axios.get(API);
+      await axios.get(
+        API
+      );
 
 
 
@@ -65,16 +67,22 @@ export const updateLead =
 
   };
 
+
+
+/* -----------------------------------
+   FETCH LEAD BY ID
+----------------------------------- */
+
 export const fetchLeadById =
   async (id) => {
 
     const response =
-      await fetch(
-        `http://localhost:5000/api/leads/${id}`
+      await axios.get(
+        `${API}/${id}`
       );
 
 
 
-    return response.json();
+    return response.data;
 
-};
+  };

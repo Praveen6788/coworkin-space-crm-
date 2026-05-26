@@ -32,7 +32,7 @@ function FloorMap() {
 
     return (
 
-      <div className="bg-[#020617] border border-white/10 rounded-[32px] p-10 min-h-[500px] flex items-center justify-center">
+      <div className="bg-[#020617] border border-white/10 rounded-[32px] p-10 min-h-[500px] flex items-center justify-center ">
 
         <div className="text-center">
 
@@ -138,7 +138,7 @@ function FloorMap() {
 
   return (
 
-    <div className="bg-[#020617] border border-white/10 rounded-[32px] p-7">
+    <div className="bg-[#020617] border border-white/10  p-7 mt-15">
 
       {/* HEADER */}
 
@@ -393,11 +393,10 @@ function FloorMap() {
 
                   <div
                     key={index}
-                    className={`w-[190px] h-[130px] rounded-[30px] border flex flex-col items-center justify-center transition ${
-                      cabin.occupied
+                    className={`w-[190px] h-[130px] rounded-[30px] border flex flex-col items-center justify-center transition ${cabin.occupied
                         ? "bg-sky-500/10 border-sky-500/20"
                         : "bg-sky-500/5 border-sky-500/10"
-                    }`}
+                      }`}
                   >
 
                     <Building2
@@ -507,11 +506,10 @@ function FloorMap() {
 
                       <div
                         key={index}
-                        className={`h-12 rounded-xl flex items-center justify-center ${
-                          occupied
+                        className={`h-12 rounded-xl flex items-center justify-center ${occupied
                             ? "bg-emerald-500"
                             : "bg-emerald-500/20 border border-emerald-500/20"
-                        }`}
+                          }`}
                       >
 
                         <Armchair
@@ -581,11 +579,10 @@ function FloorMap() {
 
 
                     <div
-                      className={`px-3 h-9 rounded-full flex items-center text-[12px] font-medium ${
-                        room.available
+                      className={`px-3 h-9 rounded-full flex items-center text-[12px] font-medium ${room.available
                           ? "bg-sky-500/10 text-sky-300"
                           : "bg-emerald-500/10 text-emerald-300"
-                      }`}
+                        }`}
                     >
 
                       {room.available

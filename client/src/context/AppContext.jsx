@@ -1,193 +1,135 @@
 import {
   createContext,
   useContext,
-  useState
+  useEffect,
+  useState,
+  useCallback,
+  useMemo
 } from "react";
 
-const AppContext =
-  createContext();
+const AppContext = createContext();
 
-export const AppProvider = ({
-  children
-}) => {
+export const AppProvider = ({ children }) => {
+  /* ---------------------------------------
+     LEADS STATE
+  --------------------------------------- */
+  const [leads, setLeads] = useState({
+    new: [],
+    contacted: [],
+    proposal: [],
+    converted: []
+  });
 
-  const [activities, setActivities] =
-    useState([
+  /* ---------------------------------------
+     NOTIFICATIONS (Static state)
+  --------------------------------------- */
+  const [notifications] = useState([
+    { id: 1, message: "New workspace enquiry received" },
+    { id: 2, message: "Invoice generated successfully" },
+    { id: 3, message: "Payment pending approval" }
+  ]);
 
-      {
-        title: "Workspace Initialized",
-        description: "System operational",
-        time: "09:00 AM"
-      }
+  /* ---------------------------------------
+     ACTIVITIES (Static state)
+  --------------------------------------- */
+  const [activities] = useState([
+    { title: "Lead Created", description: "New client enquiry added", time: "2 mins ago" },
+    { title: "Proposal Sent", description: "Quotation shared with client", time: "18 mins ago" },
+    { title: "Invoice Generated", description: "Finance team generated invoice", time: "1 hour ago" }
+  ]);
 
-    ]);
+  /* ---------------------------------------
+     FETCH LEADS (Wrapped in useCallback)
+  --------------------------------------- */
+  const fetchLeads = useCallback(async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/leads`);
+      const data = await response.json();
 
+      console.log("SERVER LEADS:", data);
 
-  const [notifications, setNotifications] =
-    useState([
+      const grouped = {
+        new: [],
+        contacted: [],
+        proposal: [],
+        converted: []
+      };
 
-      {
-        id: 1,
-        message: "12 renewals due this week"
-      }
+      data.forEach((lead) => {
+        const status = lead.status || "new";
 
-    ]);
-
-
-  const [leads, setLeads] =
-    useState({
-
-      new: [
-        {
-          id: 1,
-          company: "TechNova",
-          contact: "Rahul Sharma",
-          value: "?1.2L"
-        },
-
-        {
-          id: 2,
-          company: "CloudMint",
-          contact: "Anjali Mehta",
-          value: "?84K"
+        if (grouped[status]) {
+          grouped[status].push({
+            id: lead._id,
+            company: lead.company || "Unknown Company",
+            contact: lead.name || "No Name",
+            value: lead.budget || "₹50K"
+          });
         }
-      ],
+      });
 
-      contacted: [
-        {
-          id: 3,
-          company: "ScaleX",
-          contact: "Vikram Rao",
-          value: "?2.4L"
-        }
-      ],
+      setLeads(grouped);
+    } catch (error) {
+      console.log("FETCH ERROR:", error);
+    }
+  }, []); // Empty array ensures this function reference never changes
 
-      proposal: [
-        {
-          id: 4,
-          company: "ByteBridge",
-          contact: "Sneha Reddy",
-          value: "?96K"
-        }
-      ],
+  /* ---------------------------------------
+     LOAD ONCE
+  --------------------------------------- */
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]); // Safe to include now
 
-      converted: []
+  /* ---------------------------------------
+     MOVE LEAD
+  --------------------------------------- */
+  const moveLead = async (id, currentStage) => {
+    const stages = ["new", "contacted", "proposal", "converted"];
+    const currentIndex = stages.indexOf(currentStage);
 
-    });
-
-
-  const stages = [
-    "new",
-    "contacted",
-    "proposal",
-    "converted"
-  ];
-
-
-  const moveLead = (
-    leadId,
-    currentStage
-  ) => {
-
-    const currentIndex =
-      stages.indexOf(currentStage);
-
-    if (
-      currentIndex === -1 ||
-      currentIndex === stages.length - 1
-    ) {
+    if (currentIndex === -1 || currentIndex === stages.length - 1) {
       return;
     }
 
-    const nextStage =
-      stages[currentIndex + 1];
+    const nextStage = stages[currentIndex + 1];
 
-    const lead =
-      leads[currentStage].find(
-        (l) => l.id === leadId
-      );
-
-    if (!lead) return;
-
-
-    setLeads((prev) => {
-
-      const updated = {
-        ...prev
-      };
-
-      updated[currentStage] =
-        updated[currentStage].filter(
-          (l) => l.id !== leadId
-        );
-
-      updated[nextStage] = [
-        ...updated[nextStage],
-        lead
-      ];
-
-      return updated;
-
-    });
-
-
-    const currentTime =
-      new Date().toLocaleTimeString(
-        [],
+    try {
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/api/leads/${id}`,
         {
-          hour: "2-digit",
-          minute: "2-digit"
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: nextStage })
         }
       );
 
-
-    setActivities((prev) => [
-
-      {
-        title: "Lead Updated",
-        description:
-          `${lead.company} moved to ${nextStage}`,
-        time: currentTime
-      },
-
-      ...prev
-
-    ]);
-
-
-    setNotifications((prev) => [
-
-      {
-        id: Date.now(),
-        message:
-          `${lead.company} moved to ${nextStage}`
-      },
-
-      ...prev
-
-    ]);
-
+      /* REFRESH DATA */
+      fetchLeads();
+    } catch (error) {
+      console.log("MOVE ERROR:", error);
+    }
   };
 
+  /* ---------------------------------------
+     CONTEXT VALUE (Wrapped in useMemo)
+  --------------------------------------- */
+  const value = useMemo(() => ({
+    leads,
+    moveLead,
+    notifications,
+    activities,
+    fetchLeads
+  }), [leads, notifications, activities, fetchLeads]);
 
   return (
-
-    <AppContext.Provider
-      value={{
-        leads,
-        moveLead,
-        activities,
-        notifications
-      }}
-    >
-
+    <AppContext.Provider value={value}>
       {children}
-
     </AppContext.Provider>
-
   );
 };
 
-
-export const useApp = () =>
-  useContext(AppContext);
+/* ---------------------------------------
+   CUSTOM HOOK
+--------------------------------------- */
+export const useApp = () => useContext(AppContext);

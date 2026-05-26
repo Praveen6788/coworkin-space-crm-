@@ -41,7 +41,7 @@ const cards = [
   },
 ]
 
-const Aboutsection = () => {
+const About = () => {
   return (
     <section
       className="
@@ -247,4 +247,4 @@ const Aboutsection = () => {
   )
 }
 
-export default Aboutsection
+export default About;

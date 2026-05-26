@@ -1,16 +1,10 @@
-import {
-  ArrowRight,
-  Building2,
-  Wallet,
-  LayoutDashboard
-} from "lucide-react";
 
-import { Link } from "react-router-dom";
 import HeroSection from "../../components/home/HeroSection";
 import ProblemSection from "../../components/home/ProblemSection"
 import SolutionSection from "../../components/home/SolutionSection";
 import CTASection from "../../components/home/CTASection";
 import FeatureCards from "../../components/home/FeatureCards";
+import About from "../../components/home/About";
 // import AboutSection from "../../components/home/AboutSection"
 
 
@@ -24,7 +18,7 @@ function Home() {
       <ProblemSection/>
       <SolutionSection/>
       {/* <AboutSection/> */}
-
+      <About/>
       <FeatureCards/>
       <CTASection/>
 

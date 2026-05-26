@@ -57,7 +57,7 @@ function FinanceOverview() {
 
   return (
 
-    <div className="min-h-screen bg-[#020617] text-white px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-[#020617] text-white px-4 sm:px-6 lg:px-8 py-6 mt-15">
 
       {/* HEADER */}
 

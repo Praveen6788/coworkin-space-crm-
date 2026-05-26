@@ -9,7 +9,7 @@ function Dashboard() {
 
   return (
 
-    <div className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-8 py-6 mt-15">
 
       {/* HEADER */}
 

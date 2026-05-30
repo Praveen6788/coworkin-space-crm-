@@ -1,3 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-hooks/set-state-in-effect */
 import {
   createContext,
   useContext,
@@ -7,12 +10,18 @@ import {
   useMemo
 } from "react";
 
+import { fetchClients } from "../Api/clientApi";
+import { fetchBranches } from "../Api/branchApi";
+import { fetchWorkspaces } from "../Api/workspaceApi";
+import { fetchInvoices } from "../Api/invoiceApi";
+import { fetchPayments } from "../Api/paymentApi";
+import { fetchBookings } from "../Api/bookingApi";
+import { getAdminDashboard } from "../Api/dashboardApi";
+import { fetchLeads } from "../Api/leadApi";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  /* ---------------------------------------
-     LEADS STATE
-  --------------------------------------- */
+
   const [leads, setLeads] = useState({
     new: [],
     contacted: [],
@@ -20,33 +29,47 @@ export const AppProvider = ({ children }) => {
     converted: []
   });
 
-  /* ---------------------------------------
-     NOTIFICATIONS (Static state)
-  --------------------------------------- */
+  const [dashboard, setDashboard] = useState(null);
+
+  const [clients, setClients] = useState([]);
+  const [branches, setBranches] = useState([]);
+  const [workspaces, setWorkspaces] = useState([]);
+  const [invoices, setInvoices] = useState([]);
+  const [payments, setPayments] = useState([]);
+  const [bookings, setBookings] = useState([]);
+
   const [notifications] = useState([
     { id: 1, message: "New workspace enquiry received" },
     { id: 2, message: "Invoice generated successfully" },
     { id: 3, message: "Payment pending approval" }
   ]);
 
-  /* ---------------------------------------
-     ACTIVITIES (Static state)
-  --------------------------------------- */
   const [activities] = useState([
-    { title: "Lead Created", description: "New client enquiry added", time: "2 mins ago" },
-    { title: "Proposal Sent", description: "Quotation shared with client", time: "18 mins ago" },
-    { title: "Invoice Generated", description: "Finance team generated invoice", time: "1 hour ago" }
+    {
+      title: "Lead Created",
+      description: "New client enquiry added",
+      time: "2 mins ago"
+    },
+    {
+      title: "Proposal Sent",
+      description: "Quotation shared with client",
+      time: "18 mins ago"
+    },
+    {
+      title: "Invoice Generated",
+      description: "Finance team generated invoice",
+      time: "1 hour ago"
+    }
   ]);
 
-  /* ---------------------------------------
-     FETCH LEADS (Wrapped in useCallback)
-  --------------------------------------- */
   const fetchLeads = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/leads`);
-      const data = await response.json();
 
-      console.log("SERVER LEADS:", data);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/leads`
+      );
+
+      const data = await response.json();
 
       const grouped = {
         new: [],
@@ -56,71 +79,207 @@ export const AppProvider = ({ children }) => {
       };
 
       data.forEach((lead) => {
-        const status = lead.status || "new";
+
+        const status =
+          (lead.status || "new").toLowerCase();
 
         if (grouped[status]) {
+
           grouped[status].push({
             id: lead._id,
-            company: lead.company || "Unknown Company",
-            contact: lead.name || "No Name",
-            value: lead.budget || "₹50K"
+            company:
+              lead.companyName ||
+              lead.company ||
+              "Unknown Company",
+
+            contact:
+              lead.name ||
+              "No Name",
+
+            value:
+              lead.budget ||
+              "₹50K",
+
+            raw: lead
           });
+
         }
+
       });
 
       setLeads(grouped);
+
     } catch (error) {
-      console.log("FETCH ERROR:", error);
+
+      console.log(
+        "LEADS ERROR:",
+        error
+      );
+
     }
-  }, []); // Empty array ensures this function reference never changes
+  }, []);
 
-  /* ---------------------------------------
-     LOAD ONCE
-  --------------------------------------- */
+  const loadERPData = useCallback(async () => {
+
+    try {
+
+      const [
+        dashboardData,
+        clientsData,
+        branchesData,
+        workspacesData,
+        invoicesData,
+        paymentsData,
+        bookingsData
+      ] = await Promise.all([
+
+        getAdminDashboard(),
+
+        fetchClients(),
+        fetchBranches(),
+        fetchWorkspaces(),
+        fetchInvoices(),
+        fetchPayments(),
+        fetchBookings()
+
+      ]);
+
+      setDashboard(dashboardData);
+
+      setClients(clientsData);
+      setBranches(branchesData);
+      setWorkspaces(workspacesData);
+      setInvoices(invoicesData);
+      setPayments(paymentsData);
+      setBookings(bookingsData);
+
+    } catch (error) {
+
+      console.log(
+        "ERP LOAD ERROR:",
+        error
+      );
+
+    }
+
+  }, []);
+
   useEffect(() => {
+
     fetchLeads();
-  }, [fetchLeads]); // Safe to include now
+    loadERPData();
 
-  /* ---------------------------------------
-     MOVE LEAD
-  --------------------------------------- */
-  const moveLead = async (id, currentStage) => {
-    const stages = ["new", "contacted", "proposal", "converted"];
-    const currentIndex = stages.indexOf(currentStage);
+  }, [
+    fetchLeads,
+    loadERPData
+  ]);
 
-    if (currentIndex === -1 || currentIndex === stages.length - 1) {
+  const moveLead = async (
+    id,
+    currentStage
+  ) => {
+
+    const stages = [
+      "new",
+      "contacted",
+      "proposal",
+      "converted"
+    ];
+
+    const currentIndex =
+      stages.indexOf(currentStage);
+
+    if (
+      currentIndex === -1 ||
+      currentIndex === stages.length - 1
+    ) {
       return;
     }
 
-    const nextStage = stages[currentIndex + 1];
+    const nextStage =
+      stages[currentIndex + 1];
 
     try {
+
       await fetch(
         `${import.meta.env.VITE_API_URL}/api/leads/${id}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: nextStage })
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+          body: JSON.stringify({
+            status: nextStage
+          })
         }
       );
 
-      /* REFRESH DATA */
       fetchLeads();
+
     } catch (error) {
-      console.log("MOVE ERROR:", error);
+
+      console.log(
+        "MOVE ERROR:",
+        error
+      );
+
     }
+
   };
 
-  /* ---------------------------------------
-     CONTEXT VALUE (Wrapped in useMemo)
-  --------------------------------------- */
-  const value = useMemo(() => ({
-    leads,
-    moveLead,
-    notifications,
-    activities,
-    fetchLeads
-  }), [leads, notifications, activities, fetchLeads]);
+  const refreshAllData =
+    async () => {
+
+      await Promise.all([
+        fetchLeads(),
+        loadERPData()
+      ]);
+
+    };
+
+  const value = useMemo(
+    () => ({
+
+      leads,
+      moveLead,
+      fetchLeads,
+
+      dashboard,
+
+      clients,
+      branches,
+      workspaces,
+      invoices,
+      payments,
+      bookings,
+
+      refreshAllData,
+
+      notifications,
+      activities
+
+    }),
+    [
+
+      leads,
+
+      dashboard,
+
+      clients,
+      branches,
+      workspaces,
+      invoices,
+      payments,
+      bookings,
+
+      notifications,
+      activities,
+
+      fetchLeads
+
+    ]
+  );
 
   return (
     <AppContext.Provider value={value}>
@@ -129,7 +288,5 @@ export const AppProvider = ({ children }) => {
   );
 };
 
-/* ---------------------------------------
-   CUSTOM HOOK
---------------------------------------- */
-export const useApp = () => useContext(AppContext);
+export const useApp = () =>
+  useContext(AppContext);

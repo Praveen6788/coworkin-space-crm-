@@ -28,6 +28,71 @@ const leadRoutes =
 app.use("/api/leads", leadRoutes);
 
 
+// Client Routes
+const clientRoutes  =  require("./routes/clientRoutes.js")
+
+app.use("/api/clients", clientRoutes);
+
+
+// Workspace Routes
+const workspaceRoutes =
+  require("./routes/workspaceRoutes");
+
+app.use(
+  "/api/workspaces",
+  workspaceRoutes
+);
+
+
+// allocation routes
+const allocationRoutes =
+  require("./routes/allocationRoutes");
+
+app.use(
+  "/api/allocations",
+  allocationRoutes
+);
+
+// invoice routes
+
+const invoiceRoutes =
+  require("./routes/invoiceRoutes");
+
+app.use(
+  "/api/invoices",
+  invoiceRoutes
+);
+
+// payment routes
+const paymentRoutes =
+  require("./routes/paymentRoutes");
+
+app.use(
+  "/api/payments",
+  paymentRoutes
+);
+
+
+// branch routes
+const branchRoutes =
+  require("./routes/branchRoutes");
+
+app.use(
+  "/api/branches",
+  branchRoutes
+);
+
+
+
+
+// Booking routes
+const bookingRoutes =
+  require("./routes/bookingRoutes");
+
+app.use(
+  "/api/bookings",
+  bookingRoutes
+);
 
 /* DATABASE */
 

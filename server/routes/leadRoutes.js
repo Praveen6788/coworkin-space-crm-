@@ -1,13 +1,15 @@
 const express = require("express");
 
 const router = express.Router();
+const Client = require("../models/Client");
 
 const Lead =
   require("../models/Lead");
 
 
 
-/* ----------------------------------------
+/* ------------------------------
+----------
    TEST ROUTE
 ---------------------------------------- */
 
@@ -114,6 +116,85 @@ router.patch("/:id", async (req, res) => {
 
       message: error.message
 
+    });
+
+  }
+
+});
+
+/* ==========================
+   CONVERT LEAD TO CLIENT
+========================== */
+
+router.post("/:id/convert", async (req, res) => {
+
+  try {
+
+    const lead =
+      await Lead.findById(
+        req.params.id
+      );
+
+    if (!lead) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Lead not found",
+      });
+
+    }
+
+    const client =
+      await Client.create({
+
+        leadId: lead._id,
+
+        companyName:
+          lead.companyName,
+
+        contactPerson:
+          lead.name,
+
+        email:
+          lead.email,
+
+        phone:
+          lead.phone,
+
+        branch:
+          lead.branchInterested,
+
+        workspaceType:
+          lead.workspaceType,
+
+        seatsAllocated:
+          lead.seatsRequired || 1,
+
+        status: "ACTIVE",
+
+      });
+
+    lead.stage =
+      "CONVERTED";
+
+    await lead.save();
+
+    res.status(201).json({
+      success: true,
+      message:
+        "Lead converted successfully",
+
+      client,
+    });
+
+  }
+
+  catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message:
+        error.message,
     });
 
   }

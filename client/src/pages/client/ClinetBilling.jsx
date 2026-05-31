@@ -16,9 +16,11 @@ function ClientBillingPage() {
     loadData()
   }, [])
 
-  const loadData = async () => {
+const loadData = async () => {
     try {
       const clientId = localStorage.getItem("clientId")
+      console.log("clientId:", clientId) // ← add here
+      
       const [inv, pay] = await Promise.all([
         fetchClientInvoices(clientId),
         fetchClientPayments(clientId),
@@ -26,7 +28,7 @@ function ClientBillingPage() {
       setInvoices(inv)
       setPayments(pay)
     } catch (error) {
-      console.log(error)
+      console.error("Billing load error:", error.response?.data || error.message) // ← and change this
     } finally {
       setLoading(false)
     }

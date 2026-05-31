@@ -89,6 +89,10 @@ const router = createBrowserRouter([
     path : "branch-admin/finance",
     element : <FinancePage/>
   },
+  {
+    path : "branch-admin/finance/:leadId",
+    element : <FinancePage/>
+  },
   
   {
     path:"demo-manual",

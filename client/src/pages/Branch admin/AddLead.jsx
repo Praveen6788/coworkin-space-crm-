@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   User2,
@@ -14,10 +14,11 @@ import {
 } from "lucide-react";
 
 import { createLead } from "../../Api/lead";
-
-import { branches } from "../../data/branches";
+import { fetchBranches } from "../../Api/branchApi";
 
 function AddLead() {
+  const [branches, setBranches] =
+    useState([]);
 
   const [formData, setFormData] = useState({
 
@@ -33,7 +34,7 @@ function AddLead() {
 
     seats: 4,
 
-    branch: branches[0]?.name || "",
+    branch: "",
 
     budget: "",
 
@@ -47,6 +48,35 @@ function AddLead() {
 
   const [success, setSuccess] =
     useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadBranches = async () => {
+      try {
+        const data = await fetchBranches();
+
+        if (ignore) return;
+
+        setBranches(data);
+
+        if (!formData.branch && data.length) {
+          setFormData((current) => ({
+            ...current,
+            branch: data[0].branchName,
+          }));
+        }
+      } catch (error) {
+        console.log("BRANCH LOAD ERROR:", error);
+      }
+    };
+
+    loadBranches();
+
+    return () => {
+      ignore = true;
+    };
+  }, [formData.branch]);
 
 
 
@@ -125,7 +155,7 @@ const handleSubmit = async (e) => {
 
       seats: 4,
 
-      branch: branches[0]?.name || "",
+      branch: branches[0]?.branchName || "",
 
       budget: "",
 
@@ -505,12 +535,12 @@ const handleSubmit = async (e) => {
                 {branches.map((branch) => (
 
                   <option
-                    key={branch.id}
-                    value={branch.name}
+                    key={branch._id}
+                    value={branch.branchName}
                     className="bg-slate-900"
                   >
 
-                    {branch.name}
+                    {branch.branchName}
 
                   </option>
 

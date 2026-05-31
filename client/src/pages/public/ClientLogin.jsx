@@ -52,12 +52,13 @@ function ClientLogin() {
       flex items-center justify-center
       px-4 py-10
       text-white
+     
     ">
       {/* Background Glow */}
       <div className="absolute top-0 left-0 w-80 h-80 bg-blue-500/10 blur-[140px] rounded-full"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500/10 blur-[140px] rounded-full"></div>
 
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-w-md  mt-15">
         <AnimatedContent distance={40} duration={1} blur>
           <div className="
             bg-white/[0.03]

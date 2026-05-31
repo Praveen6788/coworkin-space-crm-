@@ -10,10 +10,16 @@ export const fetchClientInvoices = async (clientId) => {
   return res.data;
 };
 
-export const generateInvoice = async (clientId, workspaceId, branch) => {
+export const generateInvoice = async (
+  clientId,
+  workspaceId,
+  branch,
+  allocatedSeats = 1
+) => {
   const res = await axios.post(`${API}/api/invoices/generate/${clientId}`, {
     workspaceId,
     branch,
+    allocatedSeats,
   });
   return res.data;
 };

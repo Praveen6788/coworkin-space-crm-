@@ -51,17 +51,22 @@ function Login() {
 
   const loginAs = (role) => {
 
-    localStorage.setItem("role", role)
-
     if (role === "GLOBAL_ADMIN") {
+      localStorage.setItem("role", role)
       navigate("/global-admin/home")
     }
 
     if (role === "BRANCH_ADMIN") {
+      localStorage.setItem("role", role)
       navigate("/branch-admin/home")
     }
 
     if (role === "CLIENT") {
+      localStorage.removeItem("role")
+      localStorage.removeItem("clientId")
+      localStorage.removeItem("clientName")
+      localStorage.removeItem("clientEmail")
+      localStorage.removeItem("firebaseUid")
       navigate("/client/login")
     }
   }

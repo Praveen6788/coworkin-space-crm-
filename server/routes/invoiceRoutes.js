@@ -97,6 +97,11 @@ router.post("/generate/:clientId", async (req, res) => {
 
     const invoice = await Invoice.create({
       clientId: client._id,
+      workspaceId: workspace?._id,
+      allocatedSeats:
+        Number(req.body.allocatedSeats) ||
+        client.seatsAllocated ||
+        1,
       invoiceNumber: `INV-${Date.now()}`,
       branch: req.body.branch || client.branch,
       billingMonth: new Date().toLocaleString("default", {

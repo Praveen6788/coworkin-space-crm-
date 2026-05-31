@@ -2,6 +2,8 @@ const express = require("express");
 const Workspace = require("../models/Workspace");
 const Client =
   require("../models/Client");
+const Allocation =
+  require("../models/Allocation");
 const router = express.Router();
 
 /* ==========================

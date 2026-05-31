@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom"
 import { MapPin, Building2, ShieldCheck, Clock3 } from "lucide-react"
 import { fetchBranchById } from "../../Api/branchApi"
 import { fetchBranchWorkspaces } from "../../Api/workspaceApi"
-import { createAllocation } from "../../Api/allocationApi"
 import { generateInvoice } from "../../Api/invoiceApi"
 
 const WORKSPACE_TYPES = [
@@ -76,33 +75,27 @@ const handleBooking = async () => {
       return
     }
 
-    const allocationData = {
+    const seats = Number(formData.seats) || 1
+
+    if (selectedWorkspace.availableSeats < seats) {
+      alert("Not enough seats available for this workspace")
+      return
+    }
+
+    await generateInvoice(
       clientId,
-      workspaceId: selectedWorkspace._id,
-      branch: branch.branchName,
-      allocatedSeats: Number(formData.seats),
-      allocatedBy: "Client Portal",
-      status: "ACTIVE",
-    }
+      selectedWorkspace._id,
+      branch.branchName,
+      seats
+    )
 
-    // Step 1 — create allocation
-    await createAllocation(allocationData)
-
-    // Step 2 — generate invoice separately, don't let it block navigation
-    try {
-     await generateInvoice(clientId, selectedWorkspace._id, branch.branchName)
-    } catch (invoiceError) {
-      // Allocation succeeded, invoice can be generated manually later
-      console.log("Invoice generation failed:", invoiceError)
-    }
-
-    alert("Workspace allocated successfully")
+    alert("Invoice generated. Seats will be allocated after payment.")
     navigate("/client/bookings")
 
   } catch (error) {
-    console.log("Allocation error:", error)
+    console.log("Booking error:", error)
     alert(
-      error?.response?.data?.message || "Allocation failed. Please try again."
+      error?.response?.data?.message || "Booking failed. Please try again."
     )
   } finally {
     setLoading(false)
@@ -331,7 +324,7 @@ const handleBooking = async () => {
                     disabled={loading || !formData.workspaceType}
                     className="w-full h-11 rounded-xl bg-sky-500 hover:bg-sky-600 transition-all duration-300 text-white text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading ? "Submitting..." : "Allocate Workspace"}
+                    {loading ? "Submitting..." : "Generate Invoice"}
                   </button>
 
                 </div>

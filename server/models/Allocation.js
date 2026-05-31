@@ -14,6 +14,11 @@ const allocationSchema = new mongoose.Schema(
       required: true,
     },
 
+    invoiceId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Invoice",
+    },
+
     branch: {
       type: String,
       required: true,

@@ -8,6 +8,17 @@ const invoiceSchema = new mongoose.Schema(
       required: true,
     },
 
+    workspaceId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Workspace",
+    },
+
+    allocatedSeats: {
+      type: Number,
+      default: 1,
+      min: 1,
+    },
+
     invoiceNumber: {
       type: String,
       required: true,

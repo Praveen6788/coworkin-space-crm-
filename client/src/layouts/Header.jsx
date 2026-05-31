@@ -1,4 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
 
 const Header = () => {
 
@@ -7,11 +9,23 @@ const Header = () => {
   const navigate = useNavigate();
 
 
-  const logout = () => {
+  const logout = async () => {
 
-    localStorage.removeItem("role");
+    try {
+      if (auth) {
+        await signOut(auth);
+      }
+    } catch (error) {
+      console.error("Firebase logout failed:", error);
+    } finally {
+      localStorage.removeItem("role");
+      localStorage.removeItem("clientId");
+      localStorage.removeItem("clientName");
+      localStorage.removeItem("clientEmail");
+      localStorage.removeItem("firebaseUid");
 
-    navigate("/");
+      navigate("/");
+    }
   };
 
 
@@ -59,12 +73,12 @@ const clientNav = [
 
   {
     name: "Home",
-    path: "client/Home"
+    path: "/client/home"
   },
 
   {
     name: "Locations",
-    path: "client/locations",
+    path: "/client/locations",
     dropdown: [
       "Madhapur",
       "Gachibowli",
@@ -98,7 +112,7 @@ const clientNav = [
   
   {
     name:"billing",
-    path:"client/billing"
+    path:"/client/billing"
   }
 
 ];

@@ -62,7 +62,7 @@ function Login() {
     }
 
     if (role === "CLIENT") {
-      navigate("/client/home")
+      navigate("/client/login")
     }
   }
 

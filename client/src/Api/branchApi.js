@@ -21,3 +21,14 @@ export const deleteBranch = async (id) => {
   const response = await axios.delete(`${API}/api/branches/${id}`);
   return response.data;
 };
+
+export const fetchBranchById =
+  async (id) => {
+
+    const response =
+      await axios.get(
+        `${API}/api/branches/${id}`
+      );
+
+    return response.data;
+  };

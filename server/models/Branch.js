@@ -20,6 +20,16 @@ const branchSchema = new mongoose.Schema(
       trim: true,
     },
 
+    image: {
+      type: String,
+      default: "",
+    },
+
+    amenities: {
+      type: [String],
+      default: [],
+    },
+
     managerName: {
       type: String,
       default: "",
@@ -52,11 +62,7 @@ const branchSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: [
-        "ACTIVE",
-        "INACTIVE",
-        "UNDER_MAINTENANCE",
-      ],
+      enum: ["ACTIVE", "INACTIVE", "UNDER_MAINTENANCE"],
       default: "ACTIVE",
     },
   },
@@ -66,16 +72,9 @@ const branchSchema = new mongoose.Schema(
 );
 
 branchSchema.pre("save", function () {
-
-  this.availableCapacity =
-    this.totalCapacity -
-    this.occupiedCapacity;
-
+  this.availableCapacity = this.totalCapacity - this.occupiedCapacity;
 });
 
-const Branch = mongoose.model(
-  "Branch",
-  branchSchema
-);
+const Branch = mongoose.model("Branch", branchSchema);
 
 module.exports = Branch;

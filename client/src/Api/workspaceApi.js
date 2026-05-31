@@ -21,3 +21,15 @@ export const deleteWorkspace = async (id) => {
   const response = await axios.delete(`${API}/api/workspaces/${id}`);
   return response.data;
 };
+
+
+export const fetchBranchWorkspaces =
+  async (branch) => {
+
+    const response =
+      await axios.get(
+        `${API}/api/workspaces?branch=${branch}`
+      );
+
+    return response.data;
+  };

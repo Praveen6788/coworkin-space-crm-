@@ -24,8 +24,8 @@ import AddLead from "./pages/Branch admin/AddLead";
 import FinancePage from "./pages/Branch admin/FinancePage";
 import ClientBillingPage from "./pages/client/ClinetBilling";
 import DemoManual from "./pages/public/DemoManual";
-
-
+import ClientLogin from "./components/clients/ClientLogin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -51,10 +51,7 @@ const router = createBrowserRouter([
         path:"global-admin/home",
         element : <AdminHome/>
       },
-      {
-        path:"client/home",
-        element : <ClientHome/>
-      },
+     
       {
         path:"global-admin/dashboard",
         element : <Dashboard/>
@@ -82,19 +79,8 @@ const router = createBrowserRouter([
         path : "branch-admin/floor-map",
         element : <FloorMap/>
       },
-      {
-        path : "client/Home",
-        element : <ClientHome/>
-
-      },
-      {path:"/bookings/:slug",
-  element:<BranchBookingPage/>}
-     ,{
-      path:"/Client/Locations",
-      element :<Loc/>
-     },
-     {path:"client/bookings",
-  element:<Bookings/>},
+     
+     
   {
     path : "branch-admin/add-lead",
     element : <AddLead/>
@@ -103,13 +89,60 @@ const router = createBrowserRouter([
     path : "branch-admin/finance",
     element : <FinancePage/>
   },
-  {
-  path :"client/billing",
-  element :<ClientBillingPage/>},
+  
   {
     path:"demo-manual",
     element : <DemoManual/>
-  }
+  },{
+  path: "client/home",
+  element: (
+    <ProtectedRoute>
+      <ClientHome />
+    </ProtectedRoute>
+  )
+},
+
+{
+  path: "client/locations",
+  element: (
+    <ProtectedRoute>
+      <Loc />
+    </ProtectedRoute>
+  )
+},
+
+{
+  path: "bookings/:id",
+  element: (
+    <ProtectedRoute>
+      <BranchBookingPage />
+    </ProtectedRoute>
+  )
+},
+
+{
+  path: "client/bookings",
+  element: (
+    <ProtectedRoute>
+      <Bookings />
+    </ProtectedRoute>
+  )
+},
+
+{
+  path: "client/billing",
+  element: (
+    <ProtectedRoute>
+      <ClientBillingPage />
+    </ProtectedRoute>
+  )
+},
+{
+  path: "/client/login",
+  element: (
+    <ClientLogin />
+  )
+}
 
     ],
   },

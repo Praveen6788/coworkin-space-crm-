@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 import { useLocation } from "react-router-dom"
-import { branches } from "../../data/branches"
+import { useEffect,useState } from "react";
+import {
+  fetchBranches
+} from "../../Api/branchApi";
+
+import {
+  fetchBranchById
+} from "../../Api/branchApi";
+
+import {
+  fetchBranchWorkspaces
+} from "../../Api/workspaceApi";
 
 import SectionHeader from "../ui/SectionHeader"
 import AnimatedContent from "../../../reactbits/Animate"
@@ -11,13 +22,58 @@ function Locations() {
 
   const isclienthome = location.pathname === "/client/Home"
 
+  const [branches,
+    setBranches] =
+    useState([]);
+
+  const [loading,
+    setLoading] =
+    useState(true);
+
+
+  const loadBranches =
+    async () => {
+
+      try {
+
+        const data =
+          await fetchBranches();
+
+        setBranches(
+          data
+        );
+
+      }
+
+      catch (error) {
+
+        console.log(error);
+
+      }
+
+      finally {
+
+        setLoading(false);
+
+      }
+
+    };
+
+  useEffect(() => {
+
+    loadBranches();
+
+  }, []);
+
+  
+
   return (
 
     <section className={`
       relative
 
       py-14
-      ${ isclienthome ? "bg-blue-200" : "bg-white"  
+      ${isclienthome ? "bg-blue-200" : "bg-white"
       }
     
       overflow-hidden
@@ -78,7 +134,7 @@ function Locations() {
           {branches.map((branch, index) => (
 
             <AnimatedContent
-              key={branch.id}
+              key={branch._id}
               distance={20}
               duration={0.6}
               delay={index * 0.05}
@@ -122,8 +178,11 @@ function Locations() {
                 ">
 
                   <img
-                    src={branch.image}
-                    alt={branch.name}
+                   src={
+  branch.image ||
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72"
+}
+                    alt={branch.branchName}
                     className="
                       w-full h-full
 
@@ -191,7 +250,7 @@ function Locations() {
                       mb-2
                     ">
 
-                      {branch.name}
+                      {branch.branchName}
 
                     </h3>
 
@@ -203,10 +262,7 @@ function Locations() {
                       leading-relaxed
                     ">
 
-                      Flexible coworking spaces
-                      designed for productivity
-                      and collaboration.
-
+                     {branch.address}
                     </p>
 
                   </div>
@@ -253,7 +309,7 @@ function Locations() {
 
 
                   <Link
-                    to={`/bookings/${branch.slug}`}
+                   to={`/bookings/${branch._id}`}
                     className="
                       group/button
 

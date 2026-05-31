@@ -28,23 +28,30 @@ router.post("/", async (req, res) => {
    GET ALL WORKSPACES
 ========================== */
 
+/* ==========================
+   GET ALL WORKSPACES
+========================== */
+
 router.get("/", async (req, res) => {
   try {
-    const workspaces =
-      await Workspace.find().sort({
-        createdAt: -1,
-      });
+    const filter = {}
 
-    res.status(200).json(workspaces);
-  }
+    if (req.query.branch) {
+      filter.branch = req.query.branch
+    }
 
-  catch (error) {
+    const workspaces = await Workspace.find(filter).sort({
+      createdAt: -1,
+    })
+
+    res.status(200).json(workspaces)
+  } catch (error) {
     res.status(500).json({
       success: false,
       message: error.message,
-    });
+    })
   }
-});
+})
 
 /* ==========================
    GET WORKSPACE BY ID

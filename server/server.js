@@ -63,14 +63,7 @@ app.use(
   invoiceRoutes
 );
 
-// payment routes
-const paymentRoutes =
-  require("./routes/paymentRoutes");
 
-app.use(
-  "/api/payments",
-  paymentRoutes
-);
 
 
 // branch routes
@@ -94,7 +87,20 @@ app.use(
   bookingRoutes
 );
 
+
+
+const paymentRoutes =
+  require("./routes/paymentRoutes");
+
+
+  app.use(
+  "/api/payments",
+  paymentRoutes
+);
+
 /* DATABASE */
+
+
 
 mongoose
   .connect(process.env.MONGO_URI)
